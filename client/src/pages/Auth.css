@@ -1,0 +1,17 @@
+.login-card {
+    max-width: 400px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Center the form and give it a floating effect */
+.signup-form {
+    width: 100%;
+    max-width: 500px; /* Adjust max-width to your preference */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
