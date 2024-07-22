@@ -7,12 +7,23 @@ import './Auth.css';  // Import custom CSS for additional styling
 const Signup = () => {
     const dispatch = useDispatch();
     const { user, isLoading, error } = useSelector((state) => state.auth);
-    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', password: '', contactNumber: '', city: '' });
+    const [contactError, setContactError] = useState('');
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const validateContactNumber = (number) => {
+        const regex = /^[6-9]\d{9}$/;
+        return regex.test(number);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateContactNumber(formData.contactNumber)) {
+            setContactError('Invalid contact number. It should be a 10-digit number starting with 6-9.');
+            return;
+        }
+        setContactError('');
         dispatch(signup(formData));
     };
 
@@ -33,6 +44,13 @@ const Signup = () => {
                     </div>
                     <div className="mb-3">
                         <input type="password" className="form-control" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                    </div>
+                    <div className="mb-3">
+                        <input type="number" className="form-control" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
+                        {contactError && <small className="text-danger">{contactError}</small>}
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control" name="city" placeholder="City Name" value={formData.city} onChange={handleChange} required />
                     </div>
                     <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>Signup</button>
                 </form>

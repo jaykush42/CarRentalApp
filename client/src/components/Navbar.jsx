@@ -1,46 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
+import './Navbar.css';
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+    const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+    const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body">
-            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-body">
+            <div className="container d-flex align-items-center">
                 <Link className="navbar-brand fs-3 fw-bold" to="/">My App</Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button 
+                    className="custom-toggler navbar-toggler" 
+                    type="button" 
+                    data-toggle="collapse" 
+                    data-target="#navbarNav" 
+                    aria-controls="navbarNav" 
+                    aria-expanded={!isNavCollapsed} 
+                    aria-label="Toggle navigation" 
+                    onClick={handleNavCollapse}
+                >
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse justify-content-center`} id="navbarNav">
                     <ul className="navbar-nav mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/cars">Cars</Link>
                         </li>
                         {user && user.isAdmin && (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/admin">Admin Home</Link>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/admin/cars">Manage Cars</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/admin/cars">Manage Cars</Link>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>
                                 </li>
                             </>
                         )}
-                        {user && (
+                        {user && !user.isAdmin && (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/profile">User Profile</Link>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/book">Book Car</Link>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/book">Book Car</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/bookings">My Bookings</Link>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>
                                 </li>
                             </>
                         )}
@@ -54,12 +67,12 @@ const Navbar = () => {
                         ) : (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/login">
-                                        <button type="button" className="btn btn-outline-light me-2">Login</button>
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/login">
+                                        <button type="button" className="btn btn-outline-success me-2">Login</button>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/signup">
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/signup">
                                         <button type="button" className="btn btn-warning">Sign-up</button>
                                     </Link>
                                 </li>

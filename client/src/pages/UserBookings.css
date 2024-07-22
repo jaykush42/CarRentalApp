@@ -1,0 +1,38 @@
+.container {
+    max-width: 80%;
+  }
+  
+  .horizontal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .booking-card {
+    flex: 0 0 auto;
+    border: none;
+  }
+  
+  .card-body .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-body .price-text {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .card-body .date-text {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .date-text span{
+    font-weight: 600;
+  }
+  
+  .card-body .btn {
+    margin-top: 8px;
+  }
+  

@@ -6,7 +6,7 @@ import './Auth.css';  // Import custom CSS for additional styling
 
 const Login = () => {
     const dispatch = useDispatch();
-    const { user, isLoading, error } = useSelector((state) => state.auth);
+    const { user, isLoading, error, isAuthenticated } = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({ email: '', password: '' });
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,7 +16,7 @@ const Login = () => {
         dispatch(login(formData));
     };
 
-    if (user) {
+    if (isAuthenticated) {
         return <Navigate to="/" />;
     }
 

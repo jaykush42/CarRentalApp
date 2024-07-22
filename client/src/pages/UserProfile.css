@@ -1,0 +1,31 @@
+.card {
+    border-radius: 0.5rem;
+}
+
+.card-header {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+    font-size: 1rem;
+}
+
+.row {
+    align-items: center;
+}
+
+.row strong {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .row {
+        text-align: left;
+    }
+
+    .row strong {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}

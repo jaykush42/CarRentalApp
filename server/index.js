@@ -19,7 +19,9 @@ app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/auth', authRoutes);
 
+
 const PORT = process.env.PORT || 5000;
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+console.log('Starting Database')
+mongoose.connect(process.env.MONGO_URL)
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.error(error.message));

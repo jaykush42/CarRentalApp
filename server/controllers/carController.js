@@ -1,4 +1,6 @@
 const Car = require('../models/Car');
+const Booking = require('../models/Booking');
+const { parseISO } = require('date-fns');
 
 exports.getCars = async (req, res) => {
     try {
@@ -38,5 +40,49 @@ exports.deleteCar = async (req, res) => {
         res.status(200).json({ message: 'Car deleted successfully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
+    }
+};
+
+exports.searchCars = async (req, res) => {
+    const { city, category, startDate, endDate } = req.body;
+    const parsedStartDate = parseISO(startDate);
+    const parsedEndDate = parseISO(endDate);
+
+    try {
+        const availableCars = await Car.aggregate([
+            { $match: { city, category } },
+            {
+                $lookup: {
+                    from: 'bookings',
+                    localField: '_id',
+                    foreignField: 'car.carId',
+                    as: 'bookings',
+                },
+            },
+            {
+                $addFields: {
+                    conflictingBookings: {
+                        $filter: {
+                            input: '$bookings',
+                            as: 'booking',
+                            cond: {
+                                $or: [
+                                    { $and: [{ $gte: ['$$booking.startDate', parsedStartDate] }, { $lte: ['$$booking.startDate', parsedEndDate] }] },
+                                    { $and: [{ $gte: ['$$booking.endDate', parsedStartDate] }, { $lte: ['$$booking.endDate', parsedEndDate] }] },
+                                    { $and: [{ $lte: ['$$booking.startDate', parsedStartDate] }, { $gte: ['$$booking.endDate', parsedEndDate] }] },
+                                    { $and: [{ $lte: ['$$booking.startDate', parsedEndDate] }, { $gte: ['$$booking.endDate', parsedStartDate] }] },
+                                ],
+                            },
+                        },
+                    },
+                },
+            },
+            { $match: { conflictingBookings: { $size: 0 } } },
+            { $project: { bookings: 0, conflictingBookings: 0 } },
+        ]);
+
+        res.json(availableCars);
+    } catch (err) {
+        res.status(500).send(err.message);
     }
 };

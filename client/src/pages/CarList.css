@@ -1,0 +1,63 @@
+/* CarList.css */
+body {
+  background: linear-gradient(
+    109.6deg,
+    rgb(36, 45, 57) 11.2%,
+    rgb(16, 37, 60) 51.2%,
+    rgb(0, 0, 0) 98.6%
+  );
+}
+.container {
+  color: white;
+}
+
+.cardCont {
+  border: none;
+  transition: transform 0.2s;
+}
+
+.cardCont:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  border-radius: 25px !important;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 10px;
+}
+
+.card-footer {
+  background-color: #A0153E !important;
+  font-weight: bold;
+  color: cyan !important;
+  border: none;
+}
+
+.card-footer:hover {
+  background-color: #C80036 !important;
+}
+
+.list {
+  border-radius: 15px 15px 5px 5px !important;
+  border: 2px solid gray;
+  box-shadow: rgba(183, 183, 204, 0.25) 0px 13px 27px -5px,
+    rgba(248, 246, 246, 0.3) 0px 8px 16px -8px;
+}
+
+.formCont{
+  position: fixed;
+  top: 10vh;
+  left: 10px;
+  z-index: 1000;
+}
