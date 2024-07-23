@@ -7,7 +7,14 @@ import axios from "axios";
 const imageUrls = [
   "/assets/brezza.jpeg",
   "/assets/amaze.jpeg",
-  // Add more image URLs as needed
+  "/assets/luxuryHyundai.jpg",
+  "/assets/luxuryKiaSUV.jpg",
+  "/assets/luxuryToyota.jpg",
+  "/assets/standardHyundai.jpg",
+  "/assets/standardNissan.jpg",
+  "/assets/standardToyota.jpg",
+  "/assets/luxuryToyotaInova.png",
+  "/assets/economyWagonR.png",
 ];
 
 const ManageCars = () => {
@@ -107,7 +114,7 @@ const ManageCars = () => {
               />
             </div>
             <div className="form-group">
-              <label className="mt-2 fw-bold">Make</label>
+              <label className="mt-2 fw-bold">Company</label>
               <input
                 type="text"
                 name="make"
@@ -206,9 +213,10 @@ const ManageCars = () => {
                 <option value="">Select transmission</option>
                 <option value="Manual">Manual</option>
                 <option value="Automatic">Automatic</option>
-                <option value="Semi-Automatic">Semi-Automatic</option>
+                <option value="Semi-Auto">Semi-Auto</option>
               </select>
             </div>
+
             <div className="form-group">
               <label className="mt-2 fw-bold">Fuel</label>
               <select
@@ -274,7 +282,7 @@ const ManageCars = () => {
             <div className="col-md-4 mb-4" key={car._id}>
               <div className="card list h-100">
                 {car.image && (
-                  <img className="card-img-top" src={car.image} alt="Car" />
+                  <img className="card-img-top " src={car.image} alt="Car" style={{ objectFit: 'cover', height: '24vh' }}/>
                 )}
                 <div className="card-body">
                   <h5 className="card-title">
@@ -283,7 +291,7 @@ const ManageCars = () => {
                   <div className="row">
                     <div className="col-6">
                       <p className="card-text">Year: {car.year}</p>
-                      <p className="card-text">Price per Day: ₹{car.pricePerDay}</p>
+                      <p className="card-text">Price/Day: ₹{car.pricePerDay}</p>
                       <p className="card-text">Category: {car.category}</p>
                       <p className="card-text">Seats: {car.seats}</p>
                     </div>

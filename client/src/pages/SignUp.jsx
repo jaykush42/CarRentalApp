@@ -34,7 +34,7 @@ const Signup = () => {
     return (
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="signup-form p-5 shadow-lg rounded">
-                <h2 className="mb-4">Signup</h2>
+                <h2 className="mb-4">SignUp</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <input type="text" className="form-control" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
@@ -54,7 +54,7 @@ const Signup = () => {
                     </div>
                     <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>Signup</button>
                 </form>
-                {error && <p className="text-danger mt-3">{error}</p>}
+                {error && <div class="alert alert-danger mt-3" role="alert">{"Failed to SignUp, try again"}</div>}
             </div>
         </div>
     );

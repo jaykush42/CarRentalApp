@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBookings, cancelBooking } from "../redux/slices/bookingSlice";
 import { fetchCars } from "../redux/slices/carSlice";
 import "./UserBookings.css";
-import { Tab } from "bootstrap";
 
 const UserBookings = () => {
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ const UserBookings = () => {
         </div>
       ) : (
         <div className="horizontal-list">
-          {bookings.map((booking) => {
+          {bookings.slice().reverse().map((booking) => {
             const car = booking.car;
             const startDate = new Date(booking.startDate);
             const endDate = new Date(booking.endDate);

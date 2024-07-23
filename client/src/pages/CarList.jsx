@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../redux/slices/carSlice";
 import { BiUser, BiCar, BiGasPump } from 'react-icons/bi';
 import { TbManualGearbox } from "react-icons/tb";
 import "./CarList.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap';
+import SearchForm from '../components/SearchForm';
+
 
 const CarList = () => {
+
+
   const dispatch = useDispatch();
   const location = useLocation();
+  const { user } = useSelector((state) => state.auth);
   const { cars, isLoading } = useSelector((state) => state.cars);
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchParams, setSearchParams] = useState({
@@ -28,7 +32,7 @@ const CarList = () => {
 
   useEffect(() => {
     if (location.state) {
-      const { category, location: city, pickUpDate: startDate, returnDate: endDate } = location.state;
+      const { category, city, pickUpDate: startDate, returnDate: endDate } = location.state;
 
       setSearchParams({
         category: category || '',
@@ -64,7 +68,7 @@ const CarList = () => {
       return (
         (params.category === '' || car.category === params.category) &&
         (params.city === '' || (car.city && car.city.toLowerCase().includes(params.city.toLowerCase()))) &&
-        (params.priceRange[1] === 20000 || car.pricePerDay <= params.priceRange[1])
+        (params.priceRange[1] === 20000 || car.pricePerDay <= params.priceRange[1]) 
       );
     });
     setFilteredCars(filtered);
@@ -82,6 +86,13 @@ const CarList = () => {
     });
     setSearchApplied(false);
   };
+
+  const navigate = useNavigate();
+
+  const handleRentNow = (car) => {
+    navigate('/book', { state: { car: car, startDate: searchParams.startDate, endDate: searchParams.endDate } });
+  };
+
 
   const renderCarCategory = (category, displayName, carsToRender) => (
     <div className="car-category mb-5">
@@ -110,11 +121,11 @@ const CarList = () => {
                 </p>
                 <h4>₹{car.pricePerDay}/day</h4>
               </div>
-              <Link className="nav-link" to="/book">
-                <div className="text-center card-footer">
+              { !user.isAdmin &&
+                <div className="text-center card-footer" onClick={()=>handleRentNow(car)}>
                   Rent Now
                 </div>
-              </Link>
+              }
             </div>
           </div>
         ))}
@@ -138,36 +149,18 @@ const CarList = () => {
       </div>
       <div className="row">
         <div className="col-md-3 formCont">
-          <h4>Search Cars</h4>
-          <Form>
-            <Form.Group controlId="category">
-              <Form.Label>Category</Form.Label>
-              <Form.Control as="select" name="category" value={searchParams.category} onChange={handleSearchChange}>
-                <option value="">Select Category</option>
-                <option value="Economy">Economy</option>
-                <option value="Standard">Standard</option>
-                <option value="Luxury">Luxury</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="city">
-              <Form.Label>City</Form.Label>
-              <Form.Control type="text" name="city" value={searchParams.city} onChange={handleSearchChange} />
-            </Form.Group>
-            <Form.Group controlId="startDate">
-              <Form.Label>Start Date</Form.Label>
-              <Form.Control type="date" name="startDate" value={searchParams.startDate} onChange={handleSearchChange} />
-            </Form.Group>
-            <Form.Group controlId="endDate">
-              <Form.Label>End Date</Form.Label>
-              <Form.Control type="date" name="endDate" value={searchParams.endDate} onChange={handleSearchChange} />
-            </Form.Group>
-            <Form.Group controlId="priceRange">
-              <Form.Label>Price Range (₹0 - ₹{searchParams.priceRange[1]})</Form.Label>
-              <Form.Control className="form-range" type="range" min="0" max="20000" name="priceRange" value={searchParams.priceRange[1]} onChange={handlePriceChange} />
-            </Form.Group>
-            <Button variant="primary" className="w-100 mt-3" onClick={() => handleSearch()}>Search</Button>
-            {searchApplied && <Button variant="secondary" className="w-100 mt-2" onClick={handleViewAll}>View All</Button>}
-          </Form>
+          <div className="homepage-form">
+            <h2>Search Cars</h2>
+            <SearchForm
+              searchParams={searchParams}
+              handleSearchChange={handleSearchChange}
+              handlePriceChange={handlePriceChange}
+              handleSearch={() => handleSearch(searchParams)}
+              handleViewAll={handleViewAll}
+              showPriceRange={true} 
+              searchApplied={searchApplied}
+            />
+          </div>
         </div>
         <div className="col-md-9 offset-md-3">
           {isLoading ? (
@@ -181,6 +174,7 @@ const CarList = () => {
               {searchApplied ? (
                 <>
                   {renderCarCategory(searchParams.category, "Searched Cars", filteredCars)}
+                  <h1>Other Available Cars</h1>
                   {renderAllCategories()}
                 </>
               ) : (

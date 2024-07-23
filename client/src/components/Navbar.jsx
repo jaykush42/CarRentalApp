@@ -47,11 +47,13 @@ const Navbar = () => {
                         {user && !user.isAdmin && (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/book">Book Car</Link>
                                 </li>
+
+                                <li className="nav-item">
+                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
+                                </li>
+                                
                                 <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>
                                 </li>

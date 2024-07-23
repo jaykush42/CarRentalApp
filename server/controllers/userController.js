@@ -9,10 +9,10 @@ dotenv.config();
 
 // POST /api/users/signup
 exports.signUp = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, contactNumber, city } = req.body;
     try {
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !contactNumber || !city) {
             res.status(400);
             throw new Error("Please Enter all the Fields");
         }
@@ -28,7 +28,7 @@ exports.signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 8);
 
         // Create a new user
-        const newUser = await User.create({ name, email, password: hashedPassword, isAdmin: false });
+        const newUser = await User.create({ name, email, password: hashedPassword, contactNumber, city, isAdmin: false });
 
         // Generate JWT token
         const token = jwt.sign(
@@ -55,13 +55,13 @@ exports.login = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'User does not Exist !!' });
         }
 
         // Validate password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Invalid credentials !!' });
         }
 
              // Create and return JWT token

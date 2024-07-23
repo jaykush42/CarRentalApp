@@ -11,6 +11,17 @@ export const signup = createAsyncThunk('auth/signup', async (userData) => {
     return response.data;
 });
 
+export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (userData, { getState }) => {
+    const { token } = getState().auth;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.put('http://localhost:5000/api/auth/update', userData, config);
+    return response.data;
+});
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: { user: null, token: null, isAuthenticated: false, isLoading: false, error: null },
@@ -52,6 +63,18 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.error.message;
                 state.isAuthenticated = false;
+            })
+            .addCase(updateUserDetails.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(updateUserDetails.fulfilled, (state, action) => {
+                state.user = action.payload.result;
+                state.isLoading = false;
+            })
+            .addCase(updateUserDetails.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
             });
     },
 });

@@ -1,19 +1,21 @@
+// pages/HomePage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchForm from '../components/SearchForm';
 import './HomePage.css';
 import carImage from '/assets/main.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HomePage = () => {
-  const [location, setLocation] = useState('');
+  const [city, setCity] = useState('');
   const [category, setCategory] = useState('');
   const [pickUpDate, setPickUpDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
+
   const navigate = useNavigate();
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    navigate('/cars', { state: { location, category, pickUpDate, returnDate } });
+  const handleSearch = () => {
+    navigate('/cars', { state: { city, category, pickUpDate, returnDate } });
   };
 
   return (
@@ -24,35 +26,21 @@ const HomePage = () => {
       <div className="homepage-content">
         <div className="homepage-form">
           <h2>Find & Book a Great Deal Today</h2>
-          <form onSubmit={handleSearch}>
-            <div className="form-group">
-              <label>Location</label>
-              <select className="form-control" value={location} onChange={(e) => setLocation(e.target.value)}>
-                <option>Select Location</option>
-                <option>Delhi</option>
-                <option>Lucknow</option>
-                <option>Bhopal</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Vehicle Class</label>
-              <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option>Select class</option>
-                <option>Economy</option>
-                <option>Standard</option>
-                <option>Luxury</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Pick-Up</label>
-              <input type="date" className="form-control" value={pickUpDate} onChange={(e) => setPickUpDate(e.target.value)} />
-            </div>
-            <div className="form-group">
-              <label>Return</label>
-              <input type="date" className="form-control" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-primary">Search</button>
-          </form>
+          <SearchForm
+            searchParams={{ category, city, startDate: pickUpDate, endDate: returnDate, priceRange: [0, 20000] }}
+            handleSearchChange={(e) => {
+              const { name, value } = e.target;
+              if (name === 'category') setCategory(value);
+              if (name === 'city') setCity(value);
+              if (name === 'startDate') setPickUpDate(value);
+              if (name === 'endDate') setReturnDate(value);
+            }}
+            handlePriceChange={(e) => {}}
+            handleSearch={handleSearch}
+            handleViewAll={() => {}}
+            searchApplied={false}
+            showPriceRange={false}
+          />
         </div>
         <div className="homepage-image">
           <img src={carImage} alt="Car" />

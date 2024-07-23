@@ -8,11 +8,16 @@ const Login = () => {
     const dispatch = useDispatch();
     const { user, isLoading, error, isAuthenticated } = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({ email: '', password: '' });
+    // const [message, setMessage] = useState('');
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // if (dateError) {
+        //     setMessage('Error: ' + dateError);
+        //     return;
+        // }
         dispatch(login(formData));
     };
 
@@ -21,8 +26,8 @@ const Login = () => {
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center min-vh-100">
-            <div className="login-card p-5 shadow-lg rounded">
+        <div className="container d-flex justify-content-center align-items-center min-vh-100 w-60">
+            <div className="login-card p-5 shadow-lg rounded w-60">
                 <h2 className="mb-4">Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
@@ -35,9 +40,10 @@ const Login = () => {
                     </div>
                     <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>Login</button>
                 </form>
-                {error && <p className="text-danger mt-3">{error}</p>}
+                {error && <div class="alert alert-danger mt-3" role="alert">{"Login failed, check email and password"}</div>}
             </div>
         </div>
+       
     );
 };
 

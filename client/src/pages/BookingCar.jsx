@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { fetchCars } from '../redux/slices/carSlice';
 
 const BookingCar = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { state } = location;
     const { cars, isLoading } = useSelector((state) => state.cars);
     const { user, token } = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({
         carId: '',
         startDate: '',
         endDate: '',
+        seats: '',
+        transmission: '',
+        fuel: '',
+        mileage: '',
     });
     const [selectedCar, setSelectedCar] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -21,12 +28,35 @@ const BookingCar = () => {
         dispatch(fetchCars());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (state && state.car) {
+            setSelectedCar(state.car);
+            setFormData({
+                carId: state.car._id,
+                startDate: state.startDate || '',
+                endDate: state.endDate || '',
+                seats: state.car.seats,
+                transmission: state.car.transmission,
+                fuel: state.car.fuel,
+                mileage: state.car.mileage,
+            });
+        }
+    }, [state]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
         if (name === 'carId') {
             const car = cars.find((car) => car._id === value);
             setSelectedCar(car);
+            setFormData({
+                ...formData,
+                carId: car._id,
+                seats: car.seats,
+                transmission: car.transmission,
+                fuel: car.fuel,
+                mileage: car.mileage,
+            });
         }
     };
 
@@ -72,7 +102,11 @@ const BookingCar = () => {
                         model: selectedCar.model,
                         year: selectedCar.year,
                         pricePerDay: selectedCar.pricePerDay,
-                        image: selectedCar.image
+                        image: selectedCar.image,
+                        seats: selectedCar.seats,
+                        transmission: selectedCar.transmission,
+                        fuel: selectedCar.fuel,
+                        mileage: selectedCar.mileage,
                     },
                     startDate: formData.startDate,
                     endDate: formData.endDate,
@@ -93,7 +127,7 @@ const BookingCar = () => {
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Book a Car</h2>
-            <form onSubmit={handleSubmit} className="bg-light p-4 rounded shadow-sm">
+            <form onSubmit={handleSubmit} className="bg-light p-4 text-black fw-bold rounded shadow-sm">
                 <div className="form-group mb-3">
                     <label htmlFor="carId">Select a car:</label>
                     <select
@@ -137,6 +171,46 @@ const BookingCar = () => {
                     />
                     {dateError && <small className="text-danger">{dateError}</small>}
                 </div>
+                {selectedCar && (
+                    <>
+                        <div className="form-group mb-3">
+                            <label>Seats:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={selectedCar.seats}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Transmission:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={selectedCar.transmission}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Fuel:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={selectedCar.fuel}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Mileage:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={selectedCar.mileage}
+                                disabled
+                            />
+                        </div>
+                    </>
+                )}
                 <div className="form-group mb-3">
                     <label>Total Price:</label>
                     <input

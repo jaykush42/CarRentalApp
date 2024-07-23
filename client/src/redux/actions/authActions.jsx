@@ -30,3 +30,11 @@ export const login = (userData) => async (dispatch) => {
 export const logout = () => (dispatch) => {
     dispatch({ type: 'LOGOUT' });
 };
+
+export const updateUserDetails = (userDetails) => {
+    return {
+        type: 'UPDATE_USER_DETAILS',
+        payload: userDetails,
+    };
+};
+
