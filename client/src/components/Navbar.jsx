@@ -35,15 +35,16 @@ const Navbar = () => {
                             <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/cars">Cars</Link>
                         </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
-                        </li>
-
                         {user && user.isAdmin && (
                             <>
                                 <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/admin/cars">Manage Cars</Link>
                                 </li>
+
+                                <li className="nav-item">
+                                  <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
+                                </li>
+  
                                 <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>
                                 </li>
@@ -51,7 +52,10 @@ const Navbar = () => {
                         )}
                         {user && !user.isAdmin && (
                             <>
-                                
+                               <li className="nav-item">
+                                  <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
+                              </li>
+  
                                 <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>
                                 </li>
