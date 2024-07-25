@@ -1,0 +1,43 @@
+.order-details-container {
+    margin-top: 50px;
+    max-width: 60% !important;
+  }
+  
+  .order-details-container .card {
+    border: none;
+    border-radius: 0.5rem;
+  }
+  
+  .order-details-container .card-header {
+    border-bottom: none;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .order-details-container .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .order-details-container .card-body {
+    padding: 4%;
+  }
+  
+  .order-details-container .row {
+    margin-bottom: 1rem;
+  }
+  
+  .order-details-container .img-fluid.order-car-image {
+    max-width: 100px;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-details-container strong {
+    font-weight: 600;
+  }
+  
+  .order-details-container p {
+    margin-bottom: 0.5rem;
+  }
+  

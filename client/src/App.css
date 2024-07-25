@@ -1,14 +1,18 @@
-body {
+ body {
     background-color: #f8f9fa;
-}
-
-.navbar {
-    margin-bottom: 20px;
+    color: white;
 }
 
 .container {
     margin-top: 20px;
+    width: 95%;
 }
+
+/*
+.navbar {
+    margin-bottom: 20px;
+}
+
 
 .card {
     margin-bottom: 20px;
@@ -24,4 +28,4 @@ body {
 
 .btn {
     width: 100%;
-}
+} */

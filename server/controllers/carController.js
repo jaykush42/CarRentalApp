@@ -11,6 +11,16 @@ exports.getCars = async (req, res) => {
     }
 };
 
+exports.getCar = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const car = await Car.findById(id);
+        res.status(200).json(car);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 exports.addCar = async (req, res) => {
     const car = new Car(req.body);
     try {
@@ -30,6 +40,26 @@ exports.updateCar = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+};
+
+exports.updateRating = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { rating } = req.body;
+    
+        const car = await Car.findById(id);
+        if (!car) {
+          return res.status(404).json({ message: 'Car not found' });
+        }
+        
+        console.log(rating)
+        car.rating = rating;
+        await car.save();
+        console.log("Rating updated successfully")
+        res.status(200).json({ message: 'Rating updated successfully', car });
+      } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+      }
 };
 
 exports.deleteCar = async (req, res) => {

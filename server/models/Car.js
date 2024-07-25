@@ -13,6 +13,7 @@ const carSchema = new mongoose.Schema({
   transmission: String,
   fuel: String,
   mileage: Number,
+  rating: { type: Number, default: 3 },
   available: { type: Boolean, default: true },
 });
 

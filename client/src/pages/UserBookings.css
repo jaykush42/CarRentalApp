@@ -1,5 +1,7 @@
-.container {
-    max-width: 80%;
+.booking-cont {
+    max-width: 85%;
+    margin: 0 auto;
+    color: white;
   }
   
   .horizontal-list {
@@ -8,8 +10,16 @@
     gap: 16px;
   }
   
+  .imgCont{
+    max-height: 18vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .booking-card {
     flex: 0 0 auto;
+    padding: 0;
     border: none;
   }
   
@@ -31,8 +41,20 @@
   .date-text span{
     font-weight: 600;
   }
-  
-  .card-body .btn {
-    margin-top: 8px;
+ 
+  .btn-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 20%;
   }
   
+  @media (max-width: 768px) {
+    .btn-cont {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 8%;
+      max-width: 100%;
+    }
+  }  

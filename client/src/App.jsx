@@ -9,10 +9,11 @@ import Signup from './pages/SignUp';
 import Profile from './pages/UserProfile';
 import UserBookings from './pages/UserBookings';
 import ManageCars from './pages/ManageCars';
-import BookingCar from './pages/BookingCar';
 import PrivateRoute from './PrivateRoute'; // Adjust path as per your actual PrivateRoute location
 import CarList from './pages/CarList';
-
+import CarDetails from './pages/CarDetails';
+import Checkout from './pages/CheckOut';
+import OrderDetails from './pages/OrderDetails'
 const App = () => {
     return (
         <Provider store={store}>
@@ -23,11 +24,13 @@ const App = () => {
                     <Route path="/cars" element={<CarList />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/car/:id" element={<CarDetails />} />
                     <Route element={<PrivateRoute />}>
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/bookings" element={<UserBookings />} />
-                        <Route path="/book" element={<BookingCar />} />
                         <Route path="/admin/cars" element={<ManageCars />} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/order-details/:id" element={<OrderDetails />} />
                     </Route>
                 </Routes>
             </Router>

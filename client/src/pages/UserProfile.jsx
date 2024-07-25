@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserDetails } from '../redux/actions/authActions';
 import './UserProfile.css';
+import { updateUserDetails } from '../redux/slices/authSlice';
 
 const UserProfile = () => {
     const { user } = useSelector((state) => state.auth);

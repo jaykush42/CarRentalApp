@@ -1,8 +1,7 @@
-// redux/slices/bookingSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Fetch bookings
 export const fetchBookings = createAsyncThunk(
     'bookings/fetchBookings',
     async ({ userId, token }) => {
@@ -10,12 +9,8 @@ export const fetchBookings = createAsyncThunk(
             const response = await axios.get(
                 'http://localhost:5000/api/bookings',
                 {
-                    headers: {
-                        'x-auth-token': token,
-                    },
-                    params: {
-                        userId: userId,
-                    }
+                    headers: { 'x-auth-token': token },
+                    params: { userId },
                 }
             );
             return response.data;
@@ -24,7 +19,41 @@ export const fetchBookings = createAsyncThunk(
         }
     }
 );
+// Fetch a single car by ID
+export const fetchBookingById = createAsyncThunk('bookings/fetchBookingById', async ({id, token}) => {
+    try {
+    const response = await axios.get(`http://localhost:5000/api/bookings/${id}`,
+        {
+            headers: { 'x-auth-token': token }
+        }  
+    );
+    // console.log(response)
+    return response.data;
+} catch (error) {
+    throw Error(error.response?.data?.message || 'Failed to fetch order.');
+}
+});
 
+// Add booking
+export const addBooking = createAsyncThunk(
+    'bookings/addBooking',
+    async ({ bookingData, token }) => {
+        try {
+            const response = await axios.post(
+                'http://localhost:5000/api/bookings',
+                bookingData,
+                {
+                    headers: { 'x-auth-token': token },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            throw Error(error.response?.data?.message || 'Failed to add booking.');
+        }
+    }
+);
+
+// Cancel booking
 export const cancelBooking = createAsyncThunk(
     'bookings/cancelBooking',
     async ({ bookingId, token }) => {
@@ -32,9 +61,7 @@ export const cancelBooking = createAsyncThunk(
             await axios.delete(
                 `http://localhost:5000/api/bookings/${bookingId}`,
                 {
-                    headers: {
-                        'x-auth-token': token,
-                    }
+                    headers: { 'x-auth-token': token },
                 }
             );
             return bookingId;
@@ -43,10 +70,9 @@ export const cancelBooking = createAsyncThunk(
         }
     }
 );
-
 const bookingSlice = createSlice({
     name: 'bookings',
-    initialState: { bookings: [], isLoading: false, error: null },
+    initialState: { bookings: [], order: null, isLoading: false, error: null },
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -62,6 +88,32 @@ const bookingSlice = createSlice({
             .addCase(fetchBookings.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message || 'Failed to fetch bookings.';
+            })
+            .addCase(fetchBookingById.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(fetchBookingById.fulfilled, (state, action) => {
+                state.order = action.payload;
+                state.isLoading = false;
+                state.error = null;
+            })
+            .addCase(fetchBookingById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message || 'Failed to fetch bookings.';
+            })
+            .addCase(addBooking.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(addBooking.fulfilled, (state, action) => {
+                state.bookings.push(action.payload);
+                state.isLoading = false;
+                state.error = null;
+            })
+            .addCase(addBooking.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message || 'Failed to add booking.';
             })
             .addCase(cancelBooking.pending, (state) => {
                 state.isLoading = true;

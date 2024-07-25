@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const dotenv = require('dotenv');
+const generateToken = require('../config/generateToken');
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ exports.signUp = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign(
-            { email: newUser.email, id: newUser._id, isAdmin: newUser.isAdmin },
+            { email: newUser.email, id: newUser._id, name: newUser.name, contactNumber:newUser.contactNumber },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );

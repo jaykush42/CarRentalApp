@@ -6,23 +6,20 @@ import './Auth.css';  // Import custom CSS for additional styling
 
 const Login = () => {
     const dispatch = useDispatch();
-    const { user, isLoading, error, isAuthenticated } = useSelector((state) => state.auth);
+    const { isLoading, error, isAuthenticated } = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({ email: '', password: '' });
-    // const [message, setMessage] = useState('');
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if (dateError) {
-        //     setMessage('Error: ' + dateError);
-        //     return;
-        // }
         dispatch(login(formData));
     };
 
     if (isAuthenticated) {
-        return <Navigate to="/" />;
+        const redirectPath = localStorage.getItem('redirectAfterLogin') || '/';
+        localStorage.removeItem('redirectAfterLogin');
+        return <Navigate to={redirectPath} />;
     }
 
     return (
@@ -43,7 +40,6 @@ const Login = () => {
                 {error && <div class="alert alert-danger mt-3" role="alert">{"Login failed, check email and password"}</div>}
             </div>
         </div>
-       
     );
 };
 

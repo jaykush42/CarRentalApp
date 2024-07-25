@@ -8,14 +8,11 @@ import "./CarList.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchForm from '../components/SearchForm';
 
-
 const CarList = () => {
-
-
   const dispatch = useDispatch();
   const location = useLocation();
-  const { user } = useSelector((state) => state.auth);
   const { cars, isLoading } = useSelector((state) => state.cars);
+
   const [filteredCars, setFilteredCars] = useState([]);
   const [searchParams, setSearchParams] = useState({
     category: '',
@@ -93,42 +90,45 @@ const CarList = () => {
     navigate('/book', { state: { car: car, startDate: searchParams.startDate, endDate: searchParams.endDate } });
   };
 
+  const handleCarClick = (carId) => {
+    navigate(`/car/${carId}`,{state:{startDate: searchParams.startDate, endDate: searchParams.endDate}});
+  };
 
   const renderCarCategory = (category, displayName, carsToRender) => (
     <div className="car-category mb-5">
       <h2 className="mb-4">{displayName}</h2>
-      <div className="row">
-        {carsToRender.filter(car => car.category === category).map((car) => (
-          <div className="col-md-4 mb-4" key={car._id}>
-            <div className="card h-100 cardCont">
-              {car.image && (
-                <img
-                  className="card-img-top"
-                  src={car.image}
-                  alt="Car image"
-                  style={{ objectFit: 'cover', height: '200px' }}
-                />
-              )}
-              <div className="card-body">
-                <h5 className="card-title">{car.make} {car.model}</h5>
-                <p className="card-text">
-                  {car.year} <br />
-                  <span className="text-success">Free cancellation up to 48h before pick-up time</span> <br />
-                  <BiUser /> {car.seats} seats &nbsp;
-                  <BiCar /> {car.doors} doors &nbsp;
-                  <BiGasPump /> {car.fuel} &nbsp;
-                  <TbManualGearbox /> {car.transmission}
-                </p>
-                <h4>₹{car.pricePerDay}/day</h4>
-              </div>
-              { !user.isAdmin &&
-                <div className="text-center card-footer" onClick={()=>handleRentNow(car)}>
-                  Rent Now
+      <div className="container">
+        <div className="row">
+          {carsToRender.filter(car => car.category === category).map((car) => (
+            <div className="col-md-4" key={car._id}>
+              <div className="card h-100">
+                {car.image && (
+                  <img
+                    className="card-img-top"
+                    src={car.image}
+                    alt="Car image"
+                    onClick={() => handleCarClick(car._id)}
+                  />
+                )}
+                <div className="card-body" onClick={() => handleCarClick(car._id)}>
+                  <h5 className="card-title">{car.make} {car.model}</h5>
+                  <p className="card-text">
+                    {car.year} <br />
+                    <span className="text-success">Free cancellation up to 48h before pick-up time</span> <br />
+                    <BiUser /> {car.seats} seats &nbsp;
+                    <BiCar /> {car.doors} doors &nbsp;
+                    <BiGasPump /> {car.fuel} &nbsp;
+                    <TbManualGearbox /> {car.transmission}
+                  </p>
+                  <h4>₹{car.pricePerDay}/day</h4>
                 </div>
-              }
+                  <div className="text-center card-footer" onClick={() => handleRentNow(car)}>
+                    Rent Now
+                  </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -142,27 +142,25 @@ const CarList = () => {
   );
 
   return (
-    <div className="container mt-5">
-      <div className="text-center mb-5">
-        <h1 className="display-3">Available Cars</h1>
+    <div className="main-container">
+      <div className="text-center">
+        <h1 className="heading">Available Cars</h1>
         <p className="lead">Browse through our collection of available cars for rent.</p>
       </div>
-      <div className="row">
-        <div className="col-md-3 formCont">
-          <div className="homepage-form">
-            <h2>Search Cars</h2>
-            <SearchForm
-              searchParams={searchParams}
-              handleSearchChange={handleSearchChange}
-              handlePriceChange={handlePriceChange}
-              handleSearch={() => handleSearch(searchParams)}
-              handleViewAll={handleViewAll}
-              showPriceRange={true} 
-              searchApplied={searchApplied}
-            />
-          </div>
+      <div className="main-cont">
+        <div className="homepage-form">
+          <h2>Search Cars</h2>
+          <SearchForm
+            searchParams={searchParams}
+            handleSearchChange={handleSearchChange}
+            handlePriceChange={handlePriceChange}
+            handleSearch={() => handleSearch(searchParams)}
+            handleViewAll={handleViewAll}
+            showPriceRange={true}
+            searchApplied={searchApplied}
+          />
         </div>
-        <div className="col-md-9 offset-md-3">
+        <div className="car-list">
           {isLoading ? (
             <div className="text-center">
               <div className="spinner-border" role="status">

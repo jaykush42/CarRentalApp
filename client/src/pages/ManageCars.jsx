@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCars } from "../redux/slices/carSlice";
-import axios from "axios";
+import { fetchCars, addCar, updateCar, deleteCar } from "../redux/slices/carSlice";
 
 // Array of image URLs from the assets folder
 const imageUrls = [
@@ -20,6 +19,7 @@ const imageUrls = [
 const ManageCars = () => {
   const dispatch = useDispatch();
   const { cars, isLoading } = useSelector((state) => state.cars);
+  const { token } = useSelector((state) => state.auth);
   const [carData, setCarData] = useState({
     city: "",
     make: "",
@@ -32,6 +32,7 @@ const ManageCars = () => {
     doors: "",
     transmission: "",
     fuel: "",
+    rating:"",
     mileage: "",
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -48,19 +49,15 @@ const ManageCars = () => {
   const handleImageChange = (e) =>
     setCarData({ ...carData, image: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (isEditing) {
-      await axios.put(
-        `http://localhost:5000/api/cars/${editingCarId}`,
-        carData
-      );
+      dispatch(updateCar({ id: editingCarId, carData, token }));
       setIsEditing(false);
       setEditingCarId(null);
     } else {
-      await axios.post("http://localhost:5000/api/cars", carData);
+      dispatch(addCar({carData, token}));
     }
-    dispatch(fetchCars());
     setCarData({
       city: "",
       make: "",
@@ -73,6 +70,7 @@ const ManageCars = () => {
       doors: "",
       transmission: "",
       fuel: "",
+      rating:"",
       mileage: "",
     });
     setShowForm(false);
@@ -85,13 +83,12 @@ const ManageCars = () => {
     setShowForm(true);
   };
 
-  const handleDelete = async (carId) => {
-    await axios.delete(`http://localhost:5000/api/cars/${carId}`);
-    dispatch(fetchCars());
+  const handleDelete = (carId) => {
+    dispatch(deleteCar({carId,token}));
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 text-white">
       <h1>Manage Cars</h1>
       <button
         className="btn btn-primary mb-3 fs-4 fw-bold"
@@ -242,6 +239,22 @@ const ManageCars = () => {
                 required
               />
             </div>
+
+            <div className="form-group">
+              <label className="mt-2 fw-bold">Rating</label>
+              <select
+                name="rating"
+                className="form-control"
+                value={carData.rating}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Rating</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
             <div className="form-group">
               <label className="mt-2 fw-bold">Image</label>
               <select
@@ -290,19 +303,19 @@ const ManageCars = () => {
                   </h5>
                   <div className="row">
                     <div className="col-6">
-                      <p className="card-text">Year: {car.year}</p>
-                      <p className="card-text">Price/Day: ₹{car.pricePerDay}</p>
-                      <p className="card-text">Category: {car.category}</p>
-                      <p className="card-text">Seats: {car.seats}</p>
+                      <p className="card-text">Year: <b> {car.year} </b></p>
+                      <p className="card-text">Price/Day: <b> ₹{car.pricePerDay} </b></p>
+                      <p className="card-text">Category: <b> {car.category} </b></p>
+                      <p className="card-text">Seats: <b> {car.seats} </b></p>
                     </div>
                     <div className="col-6">
-                      <p className="card-text">Doors: {car.doors}</p>
-                      <p className="card-text">Transmission: {car.transmission}</p>
-                      <p className="card-text">Fuel: {car.fuel}</p>
-                      <p className="card-text">Mileage: {car.mileage}</p>
+                      <p className="card-text">Doors: <b>{car.doors} </b></p>
+                      <p className="card-text">Transmission: <b> {car.transmission} </b></p>
+                      <p className="card-text">Fuel: <b> {car.fuel} </b></p>
+                      <p className="card-text">Mileage: <b> {car.mileage} </b></p>
                     </div>
                   </div>
-                  <div className="d-grid gap-4 d-flex justify-content-center">
+                  <div className="d-grid gap-4 d-flex justify-content-center mt-2">
                     <button
                       className="btn btn-warning mr-2"
                       onClick={() => handleEdit(car)}

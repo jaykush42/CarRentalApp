@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-body">
-            <div className="container d-flex align-items-center">
+            <div className="container d-flex align-items-center mt-1">
                 <Link className="navbar-brand fs-3 fw-bold" to="/">My App</Link>
 
                 <button 
@@ -34,6 +34,11 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/cars">Cars</Link>
                         </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
+                        </li>
+
                         {user && user.isAdmin && (
                             <>
                                 <li className="nav-item">
@@ -46,13 +51,6 @@ const Navbar = () => {
                         )}
                         {user && !user.isAdmin && (
                             <>
-                                <li className="nav-item">
-                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/book">Book Car</Link>
-                                </li>
-
-                                <li className="nav-item">
-                                    <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/bookings">My Bookings</Link>
-                                </li>
                                 
                                 <li className="nav-item">
                                     <Link className="nav-link text-black fs-5 fw-bolder mr-3" to="/profile">Profile</Link>

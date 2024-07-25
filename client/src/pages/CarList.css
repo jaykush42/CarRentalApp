@@ -1,4 +1,5 @@
 /* CarList.css */
+
 body {
   background: linear-gradient(
     109.6deg,
@@ -6,31 +7,66 @@ body {
     rgb(16, 37, 60) 51.2%,
     rgb(0, 0, 0) 98.6%
   );
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
 }
-.container {
+
+.main-container {
+  margin: 3% 5%;
   color: white;
+  width: 90 !important;
+  max-width: 90%;
 }
 
-.cardCont {
-  border: none;
+.heading {
+  color: #f30564;
+  font-size: 50px;
+}
+
+.main-cont {
+  display: flex;
+  align-items: start;
+  width: 100% !important;
+}
+
+.homepage-form {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  color: #000;
+}
+
+.car-list {
+  width: 80%;
+  margin-left: 20px;
+}
+
+.car-category {
+  margin-bottom: 5%;
+}
+
+.card {
   transition: transform 0.2s;
+  margin-bottom: 20px;
 }
 
-.cardCont:hover {
-  transform: scale(1.05);
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .card-img-top {
-  border-radius: 25px !important;
+  height: 25vh;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .card-body {
   padding: 15px;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: bold;
 }
 
 .card-text {
@@ -48,17 +84,24 @@ body {
   background-color: #C80036 !important;
 }
 
-.list {
-  border-radius: 15px 15px 5px 5px !important;
-  border: 2px solid gray;
-  box-shadow: rgba(183, 183, 204, 0.25) 0px 13px 27px -5px,
-    rgba(248, 246, 246, 0.3) 0px 8px 16px -8px;
-}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .main-cont {
+    flex-direction: column;
+    align-items: center !important;
+  }
 
-.formCont{
-  position: fixed;
-  top: 10vh;
-  left: 10px;
-  z-index: 1000;
-  color: black;
+  .homepage-form {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .car-list {
+    width: 100%;
+  }
+
+  .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }

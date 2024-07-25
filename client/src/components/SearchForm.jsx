@@ -2,6 +2,11 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 
+const getTodayDate = () => {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+};
+
 const SearchForm = ({ searchParams, handleSearchChange, handlePriceChange, handleSearch, handleViewAll, searchApplied, showPriceRange }) => {
   return (
     <Form>
@@ -26,11 +31,11 @@ const SearchForm = ({ searchParams, handleSearchChange, handlePriceChange, handl
 
       <Form.Group controlId="startDate">
         <Form.Label>Start Date</Form.Label>
-        <Form.Control type="date" name="startDate" value={searchParams.startDate} onChange={handleSearchChange} />
+        <Form.Control type="date" name="startDate" value={searchParams.startDate} min={getTodayDate()} onChange={handleSearchChange} />
       </Form.Group>
       <Form.Group controlId="endDate">
         <Form.Label>End Date</Form.Label>
-        <Form.Control type="date" name="endDate" value={searchParams.endDate} onChange={handleSearchChange} />
+        <Form.Control type="date" name="endDate" value={searchParams.endDate} min={searchParams.startDate || getTodayDate()} onChange={handleSearchChange} />
       </Form.Group>
 
       {showPriceRange && (

@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const carController = require('../controllers/carController');
 
 router.get('/', carController.getCars);
-router.post('/', carController.addCar);
-router.put('/:id', carController.updateCar);
-router.delete('/:id', carController.deleteCar);
-router.post('/search', carController.searchCars); // Add search route
+router.get('/:id', carController.getCar);
+router.post('/', auth, carController.addCar);
+router.put('/:id',auth, carController.updateCar);
+router.put('/:id/rating',auth, carController.updateRating);
+router.delete('/:id',auth, carController.deleteCar);
+router.post('/search', carController.searchCars); 
 
 module.exports = router;
