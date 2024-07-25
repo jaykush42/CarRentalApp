@@ -3,19 +3,19 @@ import axios from 'axios';
 
 // Fetch all cars
 export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
-    const response = await axios.get('http://localhost:5000/api/cars');
+    const response = await axios.get('https://carrentalapp-b023.onrender.com/api/cars');
     return response.data;
 });
 
 // Fetch a single car by ID
 export const fetchCarById = createAsyncThunk('cars/fetchCarById', async (id) => {
-    const response = await axios.get(`http://localhost:5000/api/cars/${id}`);
+    const response = await axios.get(`https://carrentalapp-b023.onrender.com/api/cars/${id}`);
     return response.data;
 });
 
 // Add a car
 export const addCar = createAsyncThunk('cars/addCar', async ({carData, token}) => {
-    const response = await axios.post('http://localhost:5000/api/cars', carData,
+    const response = await axios.post('https://carrentalapp-b023.onrender.com/api/cars', carData,
         {
             headers: { 'x-auth-token': token },
         }
@@ -25,7 +25,7 @@ export const addCar = createAsyncThunk('cars/addCar', async ({carData, token}) =
 
 // Update a car
 export const updateCar = createAsyncThunk('cars/updateCar', async ({ id, carData, token }) => {
-    const response = await axios.put(`http://localhost:5000/api/cars/${id}`, carData,
+    const response = await axios.put(`https://carrentalapp-b023.onrender.com/api/cars/${id}`, carData,
         {
             headers: { 'x-auth-token': token },
         }
@@ -34,7 +34,7 @@ export const updateCar = createAsyncThunk('cars/updateCar', async ({ id, carData
 });
 
 export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, rating, token }) => {
-    const response = await axios.put(`http://localhost:5000/api/cars/${id}/rating`, {rating},
+    const response = await axios.put(`https://carrentalapp-b023.onrender.com/api/cars/${id}/rating`, {rating},
         {
             headers: { 'x-auth-token': token },
         }
@@ -44,7 +44,7 @@ export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, r
 
 // Delete a car
 export const deleteCar = createAsyncThunk('cars/deleteCar', async ({id, token}) => {
-    await axios.delete(`http://localhost:5000/api/cars/${id}`,
+    await axios.delete(`https://carrentalapp-b023.onrender.com/api/cars/${id}`,
         {
             headers: { 'x-auth-token': token },
         }

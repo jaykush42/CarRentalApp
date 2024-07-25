@@ -135,9 +135,9 @@ const CarList = () => {
 
   const renderAllCategories = () => (
     <>
-      {renderCarCategory('Economy', 'Economy (from ₹5000/day)', cars)}
-      {renderCarCategory('Standard', 'Standard (from ₹8000/day)', cars)}
-      {renderCarCategory('Luxury', 'Luxury (from ₹12000/day)', cars)}
+      {renderCarCategory('Economy', 'Economy (from ₹3000/day)', cars)}
+      {renderCarCategory('Standard', 'Standard (from ₹5000/day)', cars)}
+      {renderCarCategory('Luxury', 'Luxury (from ₹10000/day)', cars)}
     </>
   );
 

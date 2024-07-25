@@ -2,12 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const login = createAsyncThunk('auth/login', async (userData) => {
-    const response = await axios.post('http://localhost:5000/api/auth/login', userData);
+    const response = await axios.post('https://carrentalapp-b023.onrender.com/api/auth/login', userData);
     return response.data;
 });
 
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
-    const response = await axios.post('http://localhost:5000/api/auth/signup', userData);
+    const response = await axios.post('https://carrentalapp-b023.onrender.com/api/auth/signup', userData);
     return response.data;
 });
 
@@ -18,7 +18,7 @@ export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', asyn
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.put('http://localhost:5000/api/auth/update', userData, config);
+    const response = await axios.put('https://carrentalapp-b023.onrender.com/api/auth/update', userData, config);
     return response.data;
 });
 

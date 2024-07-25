@@ -7,7 +7,7 @@ export const fetchBookings = createAsyncThunk(
     async ({ userId, token }) => {
         try {
             const response = await axios.get(
-                'http://localhost:5000/api/bookings',
+                'https://carrentalapp-b023.onrender.com/api/bookings',
                 {
                     headers: { 'x-auth-token': token },
                     params: { userId },
@@ -22,7 +22,7 @@ export const fetchBookings = createAsyncThunk(
 // Fetch a single car by ID
 export const fetchBookingById = createAsyncThunk('bookings/fetchBookingById', async ({id, token}) => {
     try {
-    const response = await axios.get(`http://localhost:5000/api/bookings/${id}`,
+    const response = await axios.get(`https://carrentalapp-b023.onrender.com/api/bookings/${id}`,
         {
             headers: { 'x-auth-token': token }
         }  
@@ -40,7 +40,7 @@ export const addBooking = createAsyncThunk(
     async ({ bookingData, token }) => {
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/bookings',
+                'https://carrentalapp-b023.onrender.com/api/bookings',
                 bookingData,
                 {
                     headers: { 'x-auth-token': token },
@@ -59,7 +59,7 @@ export const cancelBooking = createAsyncThunk(
     async ({ bookingId, token }) => {
         try {
             await axios.delete(
-                `http://localhost:5000/api/bookings/${bookingId}`,
+                `https://carrentalapp-b023.onrender.com/api/bookings/${bookingId}`,
                 {
                     headers: { 'x-auth-token': token },
                 }
