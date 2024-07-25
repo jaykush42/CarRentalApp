@@ -73,7 +73,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="checkout-container my-3 mb-4">
+    <div className="checkout-container ">
       <h2>CheckOut</h2>
       <div className="billing-details">
         <h3>Billing Details</h3>
