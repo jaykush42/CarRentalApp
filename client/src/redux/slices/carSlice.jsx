@@ -33,14 +33,18 @@ export const updateCar = createAsyncThunk('cars/updateCar', async ({ id, carData
     return response.data;
 });
 
-export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, rating, token }) => {
-    const response = await axios.put(`https://carrentalapp-b023.onrender.com/api/cars/${id}/rating`, {rating},
-        {
+export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, updatedRating, token }) => {
+    try {
+        const response = await axios.put(`https://carrentalapp-b023.onrender.com/api/cars/${id}/rating`, { updatedRating }, {
             headers: { 'x-auth-token': token },
-        }
-    );
-    return response.data;
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error updating rating:", error); 
+        throw error;
+    }
 });
+
 
 // Delete a car
 export const deleteCar = createAsyncThunk('cars/deleteCar', async ({id, token}) => {

@@ -18,7 +18,7 @@ const CarDetails = () => {
   const [endDate, setEndDate] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [message, setMessage] = useState("");
-  const [rating, setRating] = useState(car.rating);
+  // const [rating, setRating] = useState(car.rating);
 
   const additionalOptions = [
     { name: "Child seat", price: 250 },
@@ -30,7 +30,7 @@ const CarDetails = () => {
 
   useEffect(() => {
     dispatch(fetchCarById(id));
-  }, [dispatch, id, rating]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (location.state) {
@@ -104,16 +104,10 @@ const CarDetails = () => {
     return <div>Error: {error}</div>;
   }
 
-  
-  const ratingChanged = async (newRating) => {
-    let updatedRating 
-    if(newRating<car.rating)
-    updatedRating = (car.rating*5 - (car.rating - newRating))/5;
-    else
-    updatedRating = (car.rating*5 + (car.rating + newRating))/5;
-    setRating(updatedRating)
-    dispatch(updateRating({ id, rating, token }));
-  };
+  const ratingChanged = (newRating) => {
+    const updatedRating = (car.rating * 5 + newRating) / 5;
+    dispatch(updateRating({ id, updatedRating, token }));
+};
 
   return (
     <div className="container mt-4">

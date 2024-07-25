@@ -45,21 +45,21 @@ exports.updateCar = async (req, res) => {
 exports.updateRating = async (req, res) => {
     try {
         const { id } = req.params;
-        const { rating } = req.body;
+        const { updatedRating } = req.body;
     
         const car = await Car.findById(id);
         if (!car) {
           return res.status(404).json({ message: 'Car not found' });
         }
-        
-        console.log(rating)
-        car.rating = rating;
+
+        car.rating = updatedRating;
         await car.save();
-        console.log("Rating updated successfully")
+        
         res.status(200).json({ message: 'Rating updated successfully', car });
-      } catch (error) {
+    } catch (error) {
+        console.error("Error updating rating:", error); 
         res.status(500).json({ message: 'Server error', error });
-      }
+    }
 };
 
 exports.deleteCar = async (req, res) => {
