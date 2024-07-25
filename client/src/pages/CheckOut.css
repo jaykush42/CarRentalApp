@@ -41,3 +41,10 @@
     margin-bottom: 10px;
   }
   
+  /* Responsive Styles */
+@media (max-width: 768px) {
+  .checkout-container {
+    margin: 5%;
+    margin-bottom: 30%;
+  }
+}

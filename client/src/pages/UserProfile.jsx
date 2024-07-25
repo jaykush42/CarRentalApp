@@ -42,7 +42,7 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 profile-cont">
             <div className="card shadow-sm">
                 <div className="card-header bg-success text-white">
                     <h1 className="h4 mb-0">User Profile</h1>

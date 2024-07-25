@@ -95,8 +95,8 @@ const CarList = () => {
   };
 
   const renderCarCategory = (category, displayName, carsToRender) => (
-    <div className="car-category mb-5">
-      <h2 className="mb-4">{displayName}</h2>
+    <div className="car-category mb-3">
+      <h2 className="">{displayName}</h2>
       <div className="container">
         <div className="row">
           {carsToRender.filter(car => car.category === category).map((car) => (
@@ -162,7 +162,7 @@ const CarList = () => {
         </div>
         <div className="car-list">
           {isLoading ? (
-            <div className="text-center">
+            <div className="text-center loader">
               <div className="spinner-border" role="status">
                 <span className="sr-only">Loading...</span>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars, addCar, updateCar, deleteCar } from "../redux/slices/carSlice";
+import './ManageCars.css'
 
 // Array of image URLs from the assets folder
 const imageUrls = [
@@ -88,7 +89,7 @@ const ManageCars = () => {
   };
 
   return (
-    <div className="container mt-4 text-white">
+    <div className="container mt-4 text-white manageCar-cont">
       <h1>Manage Cars</h1>
       <button
         className="btn btn-primary mb-3 fs-4 fw-bold"
@@ -292,7 +293,7 @@ const ManageCars = () => {
       ) : (
         <div className="row">
           {cars.map((car) => (
-            <div className="col-md-4 mb-4" key={car._id}>
+            <div className="col-md-4 mb-2" key={car._id}>
               <div className="card list h-100">
                 {car.image && (
                   <img className="card-img-top " src={car.image} alt="Car" style={{ objectFit: 'cover', height: '24vh' }}/>

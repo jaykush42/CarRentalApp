@@ -110,7 +110,7 @@ const CarDetails = () => {
 };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 car-cont">
       <div className="row">
         <div className="col-lg-8">
           <div className="card mb-4">
@@ -200,7 +200,7 @@ const CarDetails = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">₹{car.pricePerDay} /day</h5>
-              <form className="bg-light p-4 text-black rounded shadow-sm">
+              <form className="bg-light p-2 text-black rounded shadow-sm">
                 <div className="mb-3">
                   <label htmlFor="pickUpDate" className="form-label">
                     Pick-Up *

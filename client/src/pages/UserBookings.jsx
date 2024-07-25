@@ -87,14 +87,14 @@ const UserBookings = () => {
                   </div>
                   <div className="col-md-3 btn-cont mb-3">
                   <button
-                      className="btn btn-danger btn-sm py-2 fw-bold"
+                      className="btn btn-danger btn-sm fw-bold"
                       onClick={() => handleCancelBooking(booking._id)}
                       disabled={!isEndDateValid}
                     >
                       Cancel Booking
                     </button>
                   <button
-                      className="btn btn-success btn-sm p-2 fw-bold"
+                      className="btn btn-success btn-sm fw-bold"
                       onClick={() => handleViewDetails(booking._id)}
                     >
                       View Details

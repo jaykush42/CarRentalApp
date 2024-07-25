@@ -33,7 +33,7 @@ const OrderDetails = () => {
   }
 
   return (
-    <div className="container mt-5 order-details-container">
+    <div className="mt-5 order-details-container">
       <div className="card shadow-sm">
         <div className="card-header bg-primary text-white">
           <h2 className="card-title mb-0">Order Details</h2>

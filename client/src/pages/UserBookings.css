@@ -1,5 +1,5 @@
 .booking-cont {
-    max-width: 60%;
+    max-width: 75%;
     margin: 0 auto;
     color: white;
   }
@@ -50,11 +50,19 @@
   }
   
   @media (max-width: 768px) {
+    .booking-cont {
+      margin-bottom: 12vh;
+    }
     .btn-cont {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      gap: 8%;
+      gap: 5%;
       max-width: 100%;
+    }
+    .btn{
+      padding: 5px;
+      margin: 0 4px;
+      font-weight: normal !important;
     }
   }  
