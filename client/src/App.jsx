@@ -14,6 +14,7 @@ import CarList from './pages/CarList';
 import CarDetails from './pages/CarDetails';
 import Checkout from './pages/CheckOut';
 import OrderDetails from './pages/OrderDetails'
+import Footer from './components/Footer';
 const App = () => {
     return (
         <Provider store={store}>
@@ -34,7 +35,9 @@ const App = () => {
                     </Route>
                 </Routes>
             </Router>
+            <Footer/>
         </Provider>
+        
     );
 };
 

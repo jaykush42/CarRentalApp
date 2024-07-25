@@ -116,7 +116,7 @@ const CarDetails = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-lg-8">
           <div className="card mb-4">

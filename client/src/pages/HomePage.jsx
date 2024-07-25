@@ -5,6 +5,7 @@ import SearchForm from '../components/SearchForm';
 import './HomePage.css';
 import carImage from '/assets/main.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from '../components/Footer';
 
 const HomePage = () => {
   const [city, setCity] = useState('');

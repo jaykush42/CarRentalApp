@@ -14,7 +14,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-body">
             <div className="container d-flex align-items-center mt-1">
-                <Link className="navbar-brand fs-3 fw-bold" to="/">My App</Link>
+                <Link className="navbar-brand fs-3 fw-bold" to="/">Rent&Go</Link>
 
                 <button 
                     className="custom-toggler navbar-toggler" 

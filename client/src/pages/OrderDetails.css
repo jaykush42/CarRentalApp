@@ -1,6 +1,7 @@
 .order-details-container {
     margin-top: 50px;
-    max-width: 60% !important;
+    margin-bottom: 10vh;
+    max-width: 50% !important;
   }
   
   .order-details-container .card {
@@ -41,3 +42,8 @@
     margin-bottom: 0.5rem;
   }
   
+  @media (max-width: 768px) {
+    .order-details-container {
+      margin-bottom: 15vh;
+    }
+  }  
