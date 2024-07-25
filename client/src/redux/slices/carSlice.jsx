@@ -33,6 +33,7 @@ export const updateCar = createAsyncThunk('cars/updateCar', async ({ id, carData
     return response.data;
 });
 
+//Update car rating
 export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, updatedRating, token }) => {
     try {
         const response = await axios.put(`https://carrentalapp-b023.onrender.com/api/cars/${id}/rating`, { updatedRating }, {

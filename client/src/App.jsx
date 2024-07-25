@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store'; // Adjust path as per your actual store location
+import store from './redux/store';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
@@ -9,7 +9,7 @@ import Signup from './pages/SignUp';
 import Profile from './pages/UserProfile';
 import UserBookings from './pages/UserBookings';
 import ManageCars from './pages/ManageCars';
-import PrivateRoute from './PrivateRoute'; // Adjust path as per your actual PrivateRoute location
+import PrivateRoute from './PrivateRoute'; 
 import CarList from './pages/CarList';
 import CarDetails from './pages/CarDetails';
 import Checkout from './pages/CheckOut';

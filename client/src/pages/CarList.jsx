@@ -86,10 +86,6 @@ const CarList = () => {
 
   const navigate = useNavigate();
 
-  const handleRentNow = (car) => {
-    navigate('/book', { state: { car: car, startDate: searchParams.startDate, endDate: searchParams.endDate } });
-  };
-
   const handleCarClick = (carId) => {
     navigate(`/car/${carId}`,{state:{startDate: searchParams.startDate, endDate: searchParams.endDate}});
   };
@@ -122,7 +118,7 @@ const CarList = () => {
                   </p>
                   <h4>₹{car.pricePerDay}/day</h4>
                 </div>
-                  <div className="text-center card-footer" onClick={() => handleRentNow(car)}>
+                  <div className="text-center card-footer" onClick={() => handleCarClick(car._id)}>
                     Rent Now
                   </div>
               </div>
