@@ -49,6 +49,10 @@ body {
   width: 80vh;
 }
 
+.car-list {
+  margin-bottom: 4%;
+}
+
 .car-category {
   margin-bottom: 5%;
 }
@@ -74,6 +78,7 @@ body {
 .card-body {
   padding: 15px;
 }
+
 
 .card-text {
   margin-bottom: 10px;
