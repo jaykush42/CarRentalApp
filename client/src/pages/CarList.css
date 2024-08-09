@@ -1,18 +1,5 @@
 /* CarList.css */
 
-body {
-  background: linear-gradient(
-    109.6deg,
-    rgb(36, 45, 57) 11.2%,
-    rgb(16, 37, 60) 51.2%,
-    rgb(0, 0, 0) 98.6%
-  );
-  height: 100vh;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 100%;
-}
-
 .main-container {
   margin: 5%;
   margin-top: 2%;
@@ -32,12 +19,12 @@ body {
   width: 100% !important;
 }
 
-.homepage-form {
+.homepage-form1 {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 30%;
+  width: 28%;
   color: #000;
 }
 
@@ -47,6 +34,11 @@ body {
   justify-content: center;
   height: 40vh;
   width: 80vh;
+}
+
+.car-list {
+  width: 100%;
+  margin-left: 2%;
 }
 
 .car-category {
@@ -75,6 +67,7 @@ body {
   padding: 15px;
 }
 
+
 .card-text {
   margin-bottom: 10px;
 }
@@ -95,14 +88,14 @@ body {
   .main-cont {
     flex-direction: column;
     align-items: center !important;
-    margin-bottom: 25%;
+    margin-bottom: 10%;
   }
   .loader{
     margin-top: 20%;
     width: 100%;
     height: 100%;
   }
-  .homepage-form {
+  .homepage-form1 {
     width: 100%;
     margin-bottom: 20px;
   }

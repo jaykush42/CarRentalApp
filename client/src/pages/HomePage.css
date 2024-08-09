@@ -1,3 +1,15 @@
+body {
+  background: linear-gradient(
+    109.6deg,
+    rgb(36, 45, 57) 11.2%,
+    rgb(16, 37, 60) 51.2%,
+    rgb(0, 0, 0) 98.6%
+  );
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
 .homepage-container {
   background: linear-gradient(
       109.6deg,
@@ -11,12 +23,9 @@
   align-items: center;
   text-align: left;
   padding: 20px;
+  height: 90vh;
 }
 
-.container {
-  margin-top: 20px;
-  width: 95%;
-}
 
 .homepage-header h1 {
   color: #f9a825; 
@@ -27,8 +36,8 @@
 .homepage-content {
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
+  justify-content: space-between;
+  max-width: 95%;
   height: 60%;
 }
 
@@ -38,9 +47,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-right: 50px;
-  width: 100%;
-  max-width: 450px;
   text-align: left;
+  width: 40% !important;
 }
 
 .homepage-form h2 {
@@ -89,7 +97,7 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   
   .homepage-content {
       flex-direction: column;
@@ -98,6 +106,7 @@
   .homepage-form {
       margin-right: 0;
       margin-bottom: 20px;
+      width: 80% !important;
   }
 
   .homepage-header h1 {
@@ -110,12 +119,21 @@
 }
 
 @media (max-width: 480px) {
+
+
   .homepage-container{
     margin-bottom: 20% !important;
+    padding-top: 15px;
   }
 
   .homepage-header h1 {
       font-size: 2rem;
+      margin-top: 0;
+      margin-bottom: 6%;
+  }
+
+  .homepage-form{
+    width: 100% !important;
   }
 
   .homepage-form h2 {

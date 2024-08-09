@@ -144,7 +144,7 @@ const CarList = () => {
         <p className="lead">Browse through our collection of available cars for rent.</p>
       </div>
       <div className="main-cont">
-        <div className="homepage-form">
+        <div className="homepage-form1">
           <h2>Search Cars</h2>
           <SearchForm
             searchParams={searchParams}

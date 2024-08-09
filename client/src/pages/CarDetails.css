@@ -11,10 +11,13 @@
   .form-check-label {
     margin-left: 0.5rem;
   }
+  .car-cont{
+    margin-bottom: 5% !important;
+  }
   
   /* Responsive Styles */
 @media (max-width: 768px) {
   .car-cont{
-    margin-bottom: 25% !important;
+    margin-bottom: 15% !important;
   }
 }

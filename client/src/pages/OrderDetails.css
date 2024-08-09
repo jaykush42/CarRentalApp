@@ -48,7 +48,7 @@ body{
   
   @media (max-width: 768px) {
     .order-details-container {
-      margin-bottom: 15vh;
+      margin-bottom: 10vh;
       max-width: 90%;
     }
   }  

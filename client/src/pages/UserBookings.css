@@ -51,7 +51,7 @@
   
   @media (max-width: 768px) {
     .booking-cont {
-      margin-bottom: 13vh;
+      margin-bottom: 10vh;
     }
     .btn-cont {
       display: flex;
