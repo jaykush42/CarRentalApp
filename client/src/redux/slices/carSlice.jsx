@@ -48,8 +48,8 @@ export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, u
 
 
 // Delete a car
-export const deleteCar = createAsyncThunk('cars/deleteCar', async ({id, token}) => {
-    await axios.delete(`https://carrentalapp-b023.onrender.com/api/cars/${id}`,
+export const deleteCar = createAsyncThunk('cars/deleteCar', async ({carId, token}) => {
+    await axios.delete(`https://carrentalapp-b023.onrender.com/api/cars/${carId}`,
         {
             headers: { 'x-auth-token': token },
         }
