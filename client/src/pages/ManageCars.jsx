@@ -39,6 +39,14 @@ const ManageCars = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingCarId, setEditingCarId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState("");
+
+  useEffect(() => {
+    if (deleteMessage) {
+      const timer = setTimeout(() => setDeleteMessage(null), 3000);
+      return () => clearTimeout(timer); // Cleanup on unmount or state change
+    }
+  }, [deleteMessage]);
 
   useEffect(() => {
     dispatch(fetchCars());
@@ -85,7 +93,13 @@ const ManageCars = () => {
   };
 
   const handleDelete = (carId) => {
-    dispatch(deleteCar({carId,token}));
+    dispatch(deleteCar({carId,token})).then((result) => {
+      if (result.type === "cars/deleteCar/fulfilled") {
+        setDeleteMessage("Car deleted successfully.");
+      } else {
+        setDeleteMessage("Failed to delete car.");
+      }
+    });;
   };
 
   return (
@@ -97,6 +111,15 @@ const ManageCars = () => {
       >
         Add Car
       </button>
+      {deleteMessage && (
+        <div
+          className="alert alert-info"
+          onClick={() => setDeleteMessage(null)} 
+          style={{ cursor: "pointer" }}
+        >
+          {deleteMessage}
+        </div>
+      )}      
       {showForm && (
         <div className="shadow-sm p-3 mb-5 bg-body-tertiary rounded text-black">
           <form onSubmit={handleSubmit} className="mb-4">

@@ -49,13 +49,19 @@ export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, u
 
 // Delete a car
 export const deleteCar = createAsyncThunk('cars/deleteCar', async ({carId, token}) => {
+    try{
     await axios.delete(`https://carrentalapp-b023.onrender.com/api/cars/${carId}`,
         {
             headers: { 'x-auth-token': token },
         }
     );
-    return id;
-});
+    return carId;
+    }catch (error) {
+        console.error("Error while deleting car:", error); 
+        throw error;
+    }
+}
+);
 
 const carSlice = createSlice({
     name: 'cars',

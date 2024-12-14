@@ -21,7 +21,7 @@ app.use('/api/auth', authRoutes);
 
 
 const PORT = process.env.PORT || 5000;
-console.log('Starting Database')
 mongoose.connect(process.env.MONGO_URL)
+    .then(()=>console.log(' Database Connected'))
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.error(error.message));

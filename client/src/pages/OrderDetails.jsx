@@ -81,7 +81,11 @@ const OrderDetails = () => {
             <strong className='fs-4'>Billing Details:</strong>
             <p className="mb-1">{order.billingDetails.firstName} {order.billingDetails.lastName}</p>
             <p className="mb-1">{order.billingDetails.email}</p>
-            <p className="mb-1">{order.billingDetails.phone}</p>
+            <p className="mb-1">
+            {order.billingDetails.phone &&
+            String(order.billingDetails.phone).replace(/(\d{3})\d{4}(\d{3})/, "$1XXXX$2")}
+            </p>
+            {/* <p className="mb-1">{order.billingDetails.phone}</p> */}
             <p className="mb-1">{order.billingDetails.address}, {order.billingDetails.city}, {order.billingDetails.state}, {order.billingDetails.zip}</p>
           </div>
           {order.orderNotes && <div className="mb-3">

@@ -71,9 +71,12 @@ const UserProfile = () => {
                                     <div className="col-md-3">
                                         <strong>Contact Number:</strong>
                                     </div>
+                                    
                                     <div className="col-md-9">
-                                        {user.contactNumber}
+                                    {user.contactNumber &&
+                                     String(user.contactNumber).replace(/(\d{3})\d{4}(\d{3})/, "$1XXXX$2")}
                                     </div>
+
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-md-3">

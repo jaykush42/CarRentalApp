@@ -18,6 +18,13 @@ const UserBookings = () => {
     }
   }, [dispatch, user, token]);
 
+  useEffect(() => {
+    if (deleteMessage) {
+      const timer = setTimeout(() => setDeleteMessage(null), 3000);
+      return () => clearTimeout(timer); // Cleanup on unmount or state change
+    }
+  }, [deleteMessage]);
+
   const handleCancelBooking = (bookingId) => {
     dispatch(cancelBooking({ bookingId, token })).then((result) => {
       if (result.type === "bookings/cancelBooking/fulfilled") {
@@ -35,7 +42,16 @@ const UserBookings = () => {
   return (
     <div className="booking-cont mt-5">
       <h1 className="mb-4">My Bookings</h1>
-      {deleteMessage && <div className="alert alert-info">{deleteMessage}</div>}
+      {deleteMessage && (
+        <div
+          className="alert alert-info"
+          onClick={() => setDeleteMessage(null)} 
+          style={{ cursor: "pointer" }}
+        >
+          {deleteMessage}
+        </div>
+      )}      
+
       {isLoading || isCarsLoading ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-border text-primary" role="status">
