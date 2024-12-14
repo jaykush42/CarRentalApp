@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const BASE_API_URL = 'https://carrentalapp-b023.onrender.com';
+
 // Fetch bookings
 export const fetchBookings = createAsyncThunk(
     'bookings/fetchBookings',
     async ({ userId, token }) => {
         try {
             const response = await axios.get(
-                'https://carrentalapp-b023.onrender.com/api/bookings',
+                `${BASE_API_URL}/api/bookings`,
                 {
                     headers: { 'x-auth-token': token },
                     params: { userId },
@@ -22,7 +24,7 @@ export const fetchBookings = createAsyncThunk(
 // Fetch a single car by ID
 export const fetchBookingById = createAsyncThunk('bookings/fetchBookingById', async ({id, token}) => {
     try {
-    const response = await axios.get(`https://carrentalapp-b023.onrender.com/api/bookings/${id}`,
+    const response = await axios.get(`${BASE_API_URL}/api/bookings/${id}`,
         {
             headers: { 'x-auth-token': token }
         }  
@@ -40,7 +42,7 @@ export const addBooking = createAsyncThunk(
     async ({ bookingData, token }) => {
         try {
             const response = await axios.post(
-                'https://carrentalapp-b023.onrender.com/api/bookings',
+                `${BASE_API_URL}/api/bookings`,
                 bookingData,
                 {
                     headers: { 'x-auth-token': token },
@@ -59,7 +61,7 @@ export const cancelBooking = createAsyncThunk(
     async ({ bookingId, token }) => {
         try {
             await axios.delete(
-                `https://carrentalapp-b023.onrender.com/api/bookings/${bookingId}`,
+                `${BASE_API_URL}/api/bookings/${bookingId}`,
                 {
                     headers: { 'x-auth-token': token },
                 }

@@ -65,3 +65,60 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
+exports.updateUser = async (req, res) => {
+    const { id } = req.user; 
+    const { name, email, contactNumber, city } = req.body;
+
+    try {
+        if (!name || !email || !contactNumber || !city) {
+            return res.status(400).json({ message: 'Please fill all the fields' });
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            { name, email, contactNumber, city },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Profile updated successfully', result: updatedUser });
+    } catch (error) {
+        console.error('Error updating user details:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+exports.changePassword = async (req, res) => {
+    const { id } = req.user; 
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Current password is incorrect' });
+        }
+
+        if (newPassword.length < 6) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};

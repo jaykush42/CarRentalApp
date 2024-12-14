@@ -37,7 +37,7 @@ const Login = () => {
                     </div>
                     <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>Login</button>
                 </form>
-                {error && <div class="alert alert-danger mt-3" role="alert">{"Login failed, check email and password"}</div>}
+                {error && <div className="alert alert-danger mt-3" role="alert">{"Login failed, check email and password"}</div>}
             </div>
         </div>
     );

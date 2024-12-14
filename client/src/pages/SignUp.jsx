@@ -54,7 +54,7 @@ const Signup = () => {
                     </div>
                     <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>Signup</button>
                 </form>
-                {error && <div class="alert alert-danger mt-3" role="alert">{"Failed to SignUp, try again"}</div>}
+                {error && <div className="alert alert-danger mt-3" role="alert">{"Failed to SignUp, try again"}</div>}
             </div>
         </div>
     );
