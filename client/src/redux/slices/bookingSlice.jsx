@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_API_URL = 'https://carrentalapp-b023.onrender.com';
+const BASE_API_URL = 'http://localhost:5000';
 
 // Fetch bookings
 export const fetchBookings = createAsyncThunk(
@@ -29,12 +29,28 @@ export const fetchBookingById = createAsyncThunk('bookings/fetchBookingById', as
             headers: { 'x-auth-token': token }
         }  
     );
-    // console.log(response)
     return response.data;
 } catch (error) {
     throw Error(error.response?.data?.message || 'Failed to fetch order.');
 }
 });
+
+export const fetchBookingsByHostId = createAsyncThunk(
+    'bookings/fetchBookingsByHostId',
+    async ({ hostId, token }) => {
+        try {
+            const response = await axios.get(
+                `${BASE_API_URL}/api/bookings/host/${hostId}`,
+                {
+                    headers: { 'x-auth-token': token },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            throw Error(error.response?.data?.message || 'Failed to fetch bookings by host.');
+        }
+    }
+);
 
 // Add booking
 export const addBooking = createAsyncThunk(
@@ -74,60 +90,76 @@ export const cancelBooking = createAsyncThunk(
 );
 const bookingSlice = createSlice({
     name: 'bookings',
-    initialState: { bookings: [], order: null, isLoading: false, error: null },
+    initialState: { bookings:[], order: null, isBookingLoading: false, error: null },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchBookings.pending, (state) => {
-                state.isLoading = true;
+                state.isBookingLoading = true;
                 state.error = null;
             })
             .addCase(fetchBookings.fulfilled, (state, action) => {
                 state.bookings = action.payload;
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = null;
             })
             .addCase(fetchBookings.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = action.error.message || 'Failed to fetch bookings.';
             })
             .addCase(fetchBookingById.pending, (state) => {
-                state.isLoading = true;
+                state.isBookingLoading = true;
                 state.error = null;
             })
             .addCase(fetchBookingById.fulfilled, (state, action) => {
                 state.order = action.payload;
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = null;
             })
             .addCase(fetchBookingById.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = action.error.message || 'Failed to fetch bookings.';
             })
+
+            .addCase(fetchBookingsByHostId.pending, (state) => {
+                state.isBookingLoading = true;
+                state.error = null;
+            })
+            .addCase(fetchBookingsByHostId.fulfilled, (state, action) => {
+                state.bookings = action.payload;
+                state.isBookingLoading = false;
+                state.error = null;
+            })
+            .addCase(fetchBookingsByHostId.rejected, (state, action) => {
+                state.isBookingLoading = false;
+                state.error = action.error.message || 'Failed to fetch bookings by host.';
+            })
+            
             .addCase(addBooking.pending, (state) => {
-                state.isLoading = true;
+                state.isBookingLoading = true;
                 state.error = null;
             })
             .addCase(addBooking.fulfilled, (state, action) => {
                 state.bookings.push(action.payload);
-                state.isLoading = false;
+                state.order = action.payload.booking;
+                state.isBookingLoading = false;
                 state.error = null;
             })
             .addCase(addBooking.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = action.error.message || 'Failed to add booking.';
             })
             .addCase(cancelBooking.pending, (state) => {
-                state.isLoading = true;
+                state.isBookingLoading = true;
                 state.error = null;
             })
             .addCase(cancelBooking.fulfilled, (state, action) => {
                 state.bookings = state.bookings.filter(booking => booking._id !== action.payload);
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = null;
             })
             .addCase(cancelBooking.rejected, (state, action) => {
-                state.isLoading = false;
+                state.isBookingLoading = false;
                 state.error = action.error.message || 'Failed to cancel booking.';
             });
     },

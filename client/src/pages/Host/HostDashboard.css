@@ -1,0 +1,12 @@
+.dashboard-container {
+  max-width: 95%;
+  margin: auto;
+}
+
+.card h5 {
+  font-weight: 500;
+}
+
+.card h3 {
+  font-weight: bold;
+}

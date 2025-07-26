@@ -1,12 +1,14 @@
-// store.jsx or store.js
+// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
+import authUserReducer from './slices/authUserSlice';
+import authHostReducer from './slices/authHostSlice';
 import carReducer from './slices/carSlice';
 import bookingReducer from './slices/bookingSlice';
 
 const store = configureStore({
     reducer: {
-        auth: authReducer,
+        authUser: authUserReducer,   
+        authHost: authHostReducer,   
         cars: carReducer,
         bookings: bookingReducer,
     },

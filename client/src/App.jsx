@@ -1,44 +1,53 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import Login from './pages/Login';
-import Signup from './pages/SignUp';
-import Profile from './pages/UserProfile';
-import UserBookings from './pages/UserBookings';
-import ManageCars from './pages/ManageCars';
-import PrivateRoute from './PrivateRoute'; 
-import CarList from './pages/CarList';
-import CarDetails from './pages/CarDetails';
-import Checkout from './pages/CheckOut';
-import OrderDetails from './pages/OrderDetails'
-import Footer from './components/Footer';
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+import HomePage from "./pages/HomePage";
+import CarList from "./pages/User/CarList";
+import CarDetails from "./pages/User/CarDetails";
+import UserAuth from "./pages/User/UserAuth";
+import HostAuth from "./pages/Host/HostAuth";
+import ProfileRedirect from "./components/ProfileRedirect";
+import UserBookings from "./pages/User/UserBookings";
+import ManageCars from "./pages/Host/ManageCars";
+import OrderDetails from "./pages/User/OrderDetails";
+import PrivateRoute from "./PrivateRoute";
+import CheckOut from "./pages/User/CheckOut"
+import HostedCars from "./pages/Host/HostedCars";
+import HostDashboard from "./pages/Host/HostDashboard";
+
 const App = () => {
-    return (
-        <Provider store={store}>
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/cars" element={<CarList />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/car/:id" element={<CarDetails />} />
-                    <Route element={<PrivateRoute />}>
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/bookings" element={<UserBookings />} />
-                        <Route path="/admin/cars" element={<ManageCars />} />
-                        <Route path="/checkout" element={<Checkout />} />
-                        <Route path="/order-details/:id" element={<OrderDetails />} />
-                    </Route>
-                </Routes>
-            </Router>
-            <Footer/>
-        </Provider>
-        
-    );
+ 
+  return (
+    <Provider store={store}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cars" element={<CarList />} />
+          <Route path="/car/:id" element={<CarDetails />} />
+          <Route path="/auth/user" element={<UserAuth />} />
+          <Route path="/auth/host" element={<HostAuth />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<ProfileRedirect />} />
+            <Route path="/bookings" element={<UserBookings />} />
+            <Route path="/host/manageCars" element={<ManageCars />} />
+            <Route path="/host/cars" element={<HostedCars />} />
+            <Route path="/host/dashboard" element={<HostDashboard />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/order-details/:id" element={<OrderDetails />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </Router>
+    </Provider>
+  );
 };
 
 export default App;

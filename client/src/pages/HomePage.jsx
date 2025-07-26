@@ -1,22 +1,30 @@
-// pages/HomePage.jsx
+// src/pages/HomePage.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
-import './HomePage.css';
 import carImage from '/assets/main.png';
+import './HomePage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from '../components/Footer';
 
 const HomePage = () => {
-  const [city, setCity] = useState('');
-  const [category, setCategory] = useState('');
-  const [pickUpDate, setPickUpDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  const [filters, setFilters] = useState({
+    city: '',
+    category: '',
+    startDate: '',
+    endDate: '',
+  });
 
   const navigate = useNavigate();
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSearch = () => {
-    navigate('/cars', { state: { city, category, pickUpDate, returnDate } });
+    const { city, category, startDate, endDate } = filters;
+    navigate('/cars', { state: { city, category, pickUpDate: startDate, returnDate: endDate } });
   };
 
   return (
@@ -24,27 +32,27 @@ const HomePage = () => {
       <div className="homepage-header">
         <h1>Car Rental App</h1>
       </div>
-      <div className="homepage-content">
-        <div className="homepage-form">
-          <h2>Find & Book a Great Deal Today</h2>
+
+      <div className="homepage-content d-flex flex-column flex-md-row align-items-center justify-content-between">
+        <div className="homepage-form p-4">
+          <h2 className="mb-4">Find & Book a Great Deal Today</h2>
           <SearchForm
-            searchParams={{ category, city, startDate: pickUpDate, endDate: returnDate, priceRange: [0, 20000] }}
-            handleSearchChange={(e) => {
-              const { name, value } = e.target;
-              if (name === 'category') setCategory(value);
-              if (name === 'city') setCity(value);
-              if (name === 'startDate') setPickUpDate(value);
-              if (name === 'endDate') setReturnDate(value);
+            searchParams={{
+              city: filters.city,
+              category: filters.category,
+              startDate: filters.startDate,
+              endDate: filters.endDate,
+              priceRange: [0, 20000],
             }}
-            handlePriceChange={(e) => {}}
+            handleSearchChange={handleInputChange}
             handleSearch={handleSearch}
-            handleViewAll={() => {}}
             searchApplied={false}
             showPriceRange={false}
           />
         </div>
-        <div className="homepage-image">
-          <img src={carImage} alt="Car" />
+
+        <div className="homepage-image text-center">
+          <img src={carImage} alt="Car" className="img-fluid" />
         </div>
       </div>
     </div>
