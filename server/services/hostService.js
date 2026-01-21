@@ -12,6 +12,7 @@ exports.registerHost = async ({ name, email, password, contactNumber, city, host
 
   const hashedPassword = await hashPassword(password);
   const hashedPin = await hashPassword(hostPin);
+  const role = 'host';
 
   const newHost = await Host.create({
     name,
@@ -20,7 +21,7 @@ exports.registerHost = async ({ name, email, password, contactNumber, city, host
     contactNumber,
     city,
     hostPin: hashedPin,
-    role,
+    role: role,
   });
 
   const token = generateToken(newHost);

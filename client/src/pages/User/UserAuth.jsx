@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupUser, loginUser } from "../../redux/slices/authUserSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../Auth.css";
+import { CITIES } from "../../utils/cities";
+
 
 const UserAuth = () => {
   const { state } = useLocation();
@@ -78,7 +80,7 @@ const UserAuth = () => {
     return navigate(from, {
       state: {
         id: state?.id,
-        city: state?.city || auth.user?.city ||"",
+        city: state?.city || auth.user?.city || "",
         startDate: state?.startDate,
         endDate: state?.endDate,
         selectedOptions: state?.selectedOptions,
@@ -139,14 +141,20 @@ const UserAuth = () => {
                 <small className="text-danger">{contactError}</small>
               )}
 
-              <input
+              <select
                 className="form-control mb-3"
                 name="city"
-                placeholder="City"
                 value={formData.city}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">Select City</option>
+                {CITIES.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </>
           )}
 
@@ -227,10 +235,8 @@ const UserAuth = () => {
         )}
 
         {auth.error && (
-          <div className="alert alert-danger mt-3">
-            {auth.error}
-          </div>
-        )}  
+          <div className="alert alert-danger mt-3">{auth.error}</div>
+        )}
       </div>
     </div>
   );

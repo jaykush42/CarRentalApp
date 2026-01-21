@@ -150,7 +150,7 @@ const UserProfile = () => {
                         {/* CHANGE PASSWORD */}
                         {isChangingPassword && (
                             <form onSubmit={handlePasswordSubmit}>
-                                {['currentPassword', 'newPassword', 'confirmPassword'].map((field) => (
+                                {['CurrentPassword', 'NewPassword', 'ConfirmPassword'].map((field) => (
                                     <div className="row mb-3" key={field}>
                                         <div className="col-md-3"><strong>{field.replace(/([A-Z])/g, ' $1')}:</strong></div>
                                         <div className="col-md-9">

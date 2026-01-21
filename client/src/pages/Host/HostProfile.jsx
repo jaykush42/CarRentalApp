@@ -255,7 +255,7 @@ const HostProfile = () => {
             {/* CHANGE PASSWORD */}
             {isChangingPassword && (
               <form onSubmit={handlePasswordSubmit}>
-                {["currentPassword", "newPassword", "confirmPassword"].map(
+                {["CurrentPassword", "NewPassword", "ConfirmPassword"].map(
                   (field) => (
                     <div className="row mb-3" key={field}>
                       <div className="col-md-3">
@@ -302,7 +302,7 @@ const HostProfile = () => {
 
             {isChangingPin && (
               <form onSubmit={handlePinSubmit}>
-                {["currentPin", "newPin", "confirmPin"].map((field) => (
+                {["CurrentPin", "NewPin", "ConfirmPin"].map((field) => (
                   <div className="row mt-3 mb-3" key={field}>
                     <div className="col-md-3">
                       <strong>{field.replace(/([A-Z])/g, " $1")}:</strong>

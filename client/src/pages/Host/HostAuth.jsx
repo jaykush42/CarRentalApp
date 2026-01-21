@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupHost, loginHost } from "../../redux/slices/authHostSlice";
 import { Navigate } from "react-router-dom";
 import "../Auth.css";
+import { CITIES } from "../../utils/cities";
 
 const HostAuth = () => {
   const dispatch = useDispatch();
@@ -147,7 +148,7 @@ const HostAuth = () => {
             required
           />
 
-            {mode === "signup" && (
+          {mode === "signup" && (
             <input
               type="text"
               className="form-control mb-3"
@@ -158,11 +159,28 @@ const HostAuth = () => {
               required
             />
           )}
+          {mode === "signup" && (
+            <select
+              className="form-control mb-3"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select City</option>
+              {CITIES.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          )}
+
           {contactError && (
             <small className="text-danger">{contactError}</small>
           )}
 
-           <div className="input-group mb-3">
+          <div className="input-group mb-3">
             <input
               className="form-control"
               name="password"
@@ -180,7 +198,6 @@ const HostAuth = () => {
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
-
 
           {mode === "signup" && (
             <div className="input-group mb-3">
@@ -214,7 +231,6 @@ const HostAuth = () => {
           />
 
           {pinError && <small className="text-danger">{pinError}</small>}
-  
 
           <button
             type="submit"
@@ -232,8 +248,8 @@ const HostAuth = () => {
         </form>
 
         {passwordMismatch && (
-            <small className="text-danger">{passwordMismatch}</small>
-          )}
+          <small className="text-danger">{passwordMismatch}</small>
+        )}
 
         {formError && (
           <div className="alert alert-danger mt-3">{formError}</div>

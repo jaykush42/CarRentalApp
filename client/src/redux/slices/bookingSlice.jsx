@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_API_URL = 'https://carrentalapp-b023.onrender.com';
+const API_BASE_URL = "https://carrentalapp-b023.onrender.com";
 
 // Fetch bookings
 export const fetchBookings = createAsyncThunk(
@@ -9,7 +9,7 @@ export const fetchBookings = createAsyncThunk(
     async ({ userId, token }) => {
         try {
             const response = await axios.get(
-                `${BASE_API_URL}/api/bookings`,
+                `${API_BASE_URL}/api/bookings`,
                 {
                     headers: { 'x-auth-token': token },
                     params: { userId },
@@ -24,7 +24,7 @@ export const fetchBookings = createAsyncThunk(
 // Fetch a single car by ID
 export const fetchBookingById = createAsyncThunk('bookings/fetchBookingById', async ({id, token}) => {
     try {
-    const response = await axios.get(`${BASE_API_URL}/api/bookings/${id}`,
+    const response = await axios.get(`${API_BASE_URL}/api/bookings/${id}`,
         {
             headers: { 'x-auth-token': token }
         }  
@@ -40,7 +40,7 @@ export const fetchBookingsByHostId = createAsyncThunk(
     async ({ hostId, token }) => {
         try {
             const response = await axios.get(
-                `${BASE_API_URL}/api/bookings/host/${hostId}`,
+                `${API_BASE_URL}/api/bookings/host/${hostId}`,
                 {
                     headers: { 'x-auth-token': token },
                 }
@@ -58,7 +58,7 @@ export const addBooking = createAsyncThunk(
     async ({ bookingData, token }) => {
         try {
             const response = await axios.post(
-                `${BASE_API_URL}/api/bookings`,
+                `${API_BASE_URL}/api/bookings`,
                 bookingData,
                 {
                     headers: { 'x-auth-token': token },
@@ -77,7 +77,7 @@ export const cancelBooking = createAsyncThunk(
     async ({ bookingId, token }) => {
         try {
             await axios.delete(
-                `${BASE_API_URL}/api/bookings/${bookingId}`,
+                `${API_BASE_URL}/api/bookings/${bookingId}`,
                 {
                     headers: { 'x-auth-token': token },
                 }

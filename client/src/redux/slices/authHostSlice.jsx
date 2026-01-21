@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import env from "dotenv";
 
 const API_BASE_URL = "https://carrentalapp-b023.onrender.com";
 
-// ----------------------
-// Host Authentication
-// ----------------------
 
 // Signup for hosts
 export const signupHost = createAsyncThunk(
@@ -51,7 +49,7 @@ export const updateHostDetails = createAsyncThunk(
   async ({ updatedData, token }) => {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/api/hosts/update`,
+        `${API_BASE_URL}/api/hosts/updateData`,
         updatedData,
         { headers: { "x-auth-token": token } }
       );

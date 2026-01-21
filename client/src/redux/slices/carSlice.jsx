@@ -2,9 +2,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_API_URL = 'https://carrentalapp-b023.onrender.com';
+const API_BASE_URL = "https://carrentalapp-b023.onrender.com";
 
-// Helper for headers
 const authHeaders = (token) => ({
   headers: { 'x-auth-token': token },
 });
@@ -12,55 +11,55 @@ const authHeaders = (token) => ({
 // ---------------- HOST ONLY ----------------
 export const fetchHostCars = createAsyncThunk('cars/fetchHostCars', async ({ hostId, token }) => {
   
-  const res = await axios.get(`${BASE_API_URL}/api/cars/host/${hostId}`, authHeaders(token));
+  const res = await axios.get(`${API_BASE_URL}/api/cars/host/${hostId}`, authHeaders(token));
   return res.data;
 });
 
 export const fetchHostCarById = createAsyncThunk('cars/fetchHostCarById', async ({ hostId, id, token }) => {
-  const res = await axios.get(`${BASE_API_URL}/api/cars/host/${hostId}/${id}`, authHeaders(token));
+  const res = await axios.get(`${API_BASE_URL}/api/cars/host/${hostId}/${id}`, authHeaders(token));
   return res.data;
 });
 
 export const addCar = createAsyncThunk('cars/addCar', async ({ hostId, carData, token }) => {
-  const res = await axios.post(`${BASE_API_URL}/api/cars/host/${hostId}`, carData, authHeaders(token));
+  const res = await axios.post(`${API_BASE_URL}/api/cars/host/${hostId}`, carData, authHeaders(token));
   return res.data;
 });
 
 export const updateCar = createAsyncThunk('cars/updateCar', async ({ hostId, id, carData, token }) => {
-  const res = await axios.put(`${BASE_API_URL}/api/cars/host/${hostId}/${id}`, carData, authHeaders(token));
+  const res = await axios.put(`${API_BASE_URL}/api/cars/host/${hostId}/${id}`, carData, authHeaders(token));
   return res.data;
 });
 
 export const updateStatus = createAsyncThunk('cars/updateStatus', async ({ hostId, id, field, value, token }) => {
   const data = { field, value };
-  const res = await axios.put(`${BASE_API_URL}/api/cars/status/host/${hostId}/${id}`, data, authHeaders(token));
+  const res = await axios.put(`${API_BASE_URL}/api/cars/status/host/${hostId}/${id}`, data, authHeaders(token));
   return res.data;
 });
 
 export const deleteCar = createAsyncThunk('cars/deleteCar', async ({ hostId, carId, token }) => {
-  await axios.delete(`${BASE_API_URL}/api/cars/host/${hostId}/${carId}`, authHeaders(token));
+  await axios.delete(`${API_BASE_URL}/api/cars/host/${hostId}/${carId}`, authHeaders(token));
   return carId;
 });
 
 // ---------------- USER PUBLIC ----------------
 export const discoverCars = createAsyncThunk('cars/discoverCars', async ({ filterData = {}, token = null }) => {
   const headers = token ? authHeaders(token) : {};
-  const res = await axios.post(`${BASE_API_URL}/api/cars/search`, filterData, headers);
+  const res = await axios.post(`${API_BASE_URL}/api/cars/search`, filterData, headers);
   return res.data;
 });
 
 export const fetchAllCars = createAsyncThunk('cars/fetchAllCars', async () => {
-  const res = await axios.get(`${BASE_API_URL}/api/cars`);
+  const res = await axios.get(`${API_BASE_URL}/api/cars`);
   return res.data;
 });
 
 export const fetchCarById = createAsyncThunk('cars/fetchCarById', async (id) => {
-  const res = await axios.get(`${BASE_API_URL}/api/cars/${id}`);
+  const res = await axios.get(`${API_BASE_URL}/api/cars/${id}`);
   return res.data;
 });
 
 export const updateRating = createAsyncThunk('cars/updateRating', async ({ id, updatedRating, token }) => {
-  const res = await axios.put(`${BASE_API_URL}/api/cars/${id}/rating`, { updatedRating }, authHeaders(token));
+  const res = await axios.put(`${API_BASE_URL}/api/cars/${id}/rating`, { updatedRating }, authHeaders(token));
   return res.data;
 });
 
