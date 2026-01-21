@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_API_URL = 'http://localhost:5000';
+const BASE_API_URL = 'https://carrentalapp-b023.onrender.com';
 
 // Helper for headers
 const authHeaders = (token) => ({

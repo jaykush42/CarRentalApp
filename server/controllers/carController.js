@@ -24,7 +24,6 @@ exports.getCar = async (req, res) => {
 
 exports.searchCars = async (req, res) => {
   try {
-    console.log('User context:', req.user);
     const cars = await discoverCars({ user: req.user || null, filterData: req.body });
     res.status(200).json(cars);
   } catch (err) {

@@ -31,7 +31,6 @@ const CarList = () => {
 
   useEffect(() => {
     const fetchInitialCars = async () => {
-      console.log("Fetching initial cars with searchParams:", location.state);
       if (location.state) {
 
         const { category, city, pickUpDate: startDate, returnDate: endDate } = location.state;

@@ -63,13 +63,14 @@ const { bookings, isBookingLoading } = useSelector((state) => state.bookings);
             .slice()
             .reverse()
             .map((booking) => {
+              const key = booking._id || booking.bookingId
               const car = booking.car;
               const startDate = new Date(booking.startDate);
               const endDate = new Date(booking.endDate);
               const isEndDateValid = endDate > startDate;
 
               return (
-                <div key={booking._id} className="card mb-3">
+                <div key={key} className="card mb-3">
                   <div className="row g-0 align-items-center">
                     <div className="col-md-3 imgCont">
                       {car && car.image && (

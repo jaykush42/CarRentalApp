@@ -18,8 +18,11 @@ async function handleSingleBooking(data, session = null) {
     discount,
     bookingType,
     bookingStatus,
-    completed
+    completed,
   } = data;
+
+  //const bookingStatus = 'pending'; // Default status for single bookings
+ // const completed = false; // Default value for single bookings
 
   const booking = new Booking({
     car: { carId, title, image },
@@ -33,7 +36,9 @@ async function handleSingleBooking(data, session = null) {
     billingDetails,
     orderNotes,
     discount,
-    bookingType
+    bookingType,
+    bookingStatus:bookingStatus || 'pending',
+    completed: completed || false
   });
 
   const result = await booking.save({ session });

@@ -31,10 +31,9 @@ exports.protect = async (req, res, next) => {
 
     if (!user) return res.status(401).json({ message: 'User not found' });
 
-    req.user = user; // attach full user/host
+    req.user = user;
     next();
   } catch (err) {
-    console.error('Token error:', err.message);
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
 };

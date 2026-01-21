@@ -10,11 +10,11 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   const { car, totalPrice, startDate, endDate, selectedOptions = [], withDriver = false } = location.state;
-  const { user, token } = useSelector((state) => state.authUser);
+  const { user, token, error } = useSelector((state) => state.authUser);
 
   const [couponCode, setCouponCode] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(error || '');
   const [orderNotes, setOrderNotes] = useState('');
   const [billingDetails, setBillingDetails] = useState({
     firstName: user?.name.split(' ')[0] || '',
@@ -67,7 +67,7 @@ const Checkout = () => {
           image: car.image
         },
       hostId: car.host._id || car.hostId,
-      userId: user._id || user.id,
+      userId: user._id,
       totalPrice: totalPrice - discount + driverCharge,
       withDriver,
       driverCharge,
@@ -83,7 +83,12 @@ const Checkout = () => {
 
     try {
       const response = await dispatch(addBooking({ bookingData, token }));
-      console.log(response);
+      if (response.error) {
+        setMessage(response.error.message || 'Failed to place order');
+        return;
+      }
+      setMessage('Order placed successfully!');
+
       const bookingId = response.payload.booking._id || response.payload.booking.bookingId;
       navigate(`/order-details/${bookingId || response.payload.bookingId}`);
     } catch (error) {
