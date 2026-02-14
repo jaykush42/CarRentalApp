@@ -44,19 +44,21 @@ const UserAuth = () => {
         setContactError(
           "Invalid contact number. It should be a 10-digit number starting with 6-9."
         );
+        setTimeout(() => setContactError(""), 3000);
         return;
       }
 
       if (formData.password !== formData.confirmPassword) {
         setPasswordMismatch("Passwords do not match.");
+        setTimeout(() => setPasswordMismatch(""), 3000);
         return;
       }
 
       try {
         await dispatch(signupUser(formData)).unwrap();
-        // Success — navigation happens in next effect
       } catch (err) {
         setFormError(err.message || "Sign up failed. Please try again.");
+        setTimeout(() => setFormError(""), 3000);
         return;
       }
     } else {
@@ -69,6 +71,7 @@ const UserAuth = () => {
         ).unwrap();
       } catch (err) {
         setFormError(err.message || "Login failed. Please try again.");
+        setTimeout(() => setFormError(""), 3000);
         return;
       }
     }
@@ -76,7 +79,6 @@ const UserAuth = () => {
 
   if (auth.isAuthenticated) {
     const from = state?.url ? `${state.url}${state.id}` : "/cars";
-    console.log("State in Auth:", state);
     return navigate(from, {
       state: {
         id: state?.id,

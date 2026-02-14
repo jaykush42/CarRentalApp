@@ -19,7 +19,7 @@ const CarList = () => {
 
   const [searchParams, setSearchParams] = useState({
     category: '',
-    city: user?.city || '',
+    city: user?.city || 'Delhi',
     startDate: '',
     endDate: '',
     priceRange: [0, 20000]
@@ -68,7 +68,7 @@ const CarList = () => {
 
   const handleSearch = async (params = searchParams) => {
        
-  if (!isAuthenticated && !searchParams.city) {
+  if (!searchParams.city) {
   alert("Please select a city");
   return;
 }

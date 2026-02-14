@@ -5,7 +5,7 @@ class BookingFactory {
   static getStrategy(type = 'atomic') {
     switch (type) {
       case 'atomic':
-        return new AtomicLockStrategy(); // ✅ Ensure this is a class
+        return new AtomicLockStrategy();
       case 'queue':
         return new QueueStrategy();
       default:

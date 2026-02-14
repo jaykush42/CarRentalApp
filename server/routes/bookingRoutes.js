@@ -4,7 +4,8 @@ const {
   addBooking,
   deleteBooking,
   getBookingById,
-  getBookingsByHostId
+  getBookingsByHostId,
+  checkBookingOverlap
 } = require('../controllers/bookingController');
 const { protect } = require('../middlewares/protect');
 
@@ -16,5 +17,6 @@ router.get('/:id', protect, getBookingById);
 router.get('/host/:id', protect, getBookingsByHostId);
 router.post('/', protect, addBooking);
 router.delete('/:id', protect, deleteBooking);
+router.post('/check-overlap', protect, checkBookingOverlap);
 
 module.exports = router;

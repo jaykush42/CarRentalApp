@@ -47,6 +47,7 @@ const HostAuth = () => {
 
     if (!validateHostPin(formData.hostPin)) {
       setPinError("Host PIN must be a 6-digit number.");
+      setTimeout(() => setPinError(""), 3000);
       return;
     }
 
@@ -55,11 +56,13 @@ const HostAuth = () => {
         setContactError(
           "Invalid contact number. It should be a 10-digit number starting with 6-9."
         );
+        setTimeout(() => setContactError(""), 3000);
         return;
       }
 
       if (formData.password !== formData.confirmPassword) {
         setPasswordMismatch("Passwords do not match.");
+        setTimeout(() => setPasswordMismatch(""), 3000);
         return;
       }
 
@@ -71,6 +74,7 @@ const HostAuth = () => {
           } else {
             setFormError("Signup failed, please try again.");
           }
+          setTimeout(() => setFormError(""), 3000);
         });
     } else {
       dispatch(
@@ -83,6 +87,7 @@ const HostAuth = () => {
         .unwrap()
         .catch(() => {
           setFormError("Login failed, check your credentials.");
+          setTimeout(() => setFormError(""), 3000);
         });
     }
   };

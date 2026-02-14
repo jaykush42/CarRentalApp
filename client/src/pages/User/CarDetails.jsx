@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCarById, updateRating } from "../../redux/slices/carSlice";
+import { checkOverlapping } from "../../redux/slices/bookingSlice";
 import ReactStars from "react-rating-stars-component";
 import "./CarDetails.css";
 import { CHARGES } from "../../utils/additionalCharges";
@@ -44,7 +45,7 @@ const CarDetails = () => {
       const numberOfDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
       const optionsTotal = selectedOptions.reduce(
         (acc, opt) => acc + opt.price,
-        0
+        0,
       );
       const driverCharge =
         withDriver && car.driver?.availability ? car.driver.pricePerDay : 0;
@@ -62,7 +63,7 @@ const CarDetails = () => {
     setSelectedOptions(newSelected);
   };
 
-  const handleRentNow = () => {
+  const handleRentNow = async () => {
     if (!isAuthenticated) {
       localStorage.setItem("redirectAfterLogin", location.pathname);
       return navigate("/auth/user", {
@@ -79,24 +80,48 @@ const CarDetails = () => {
 
     if (!startDate || !endDate) {
       setMessage("Please select both the pick-up and return dates.");
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
 
     if (new Date(endDate) <= new Date(startDate)) {
       setMessage("End date must be after the start date.");
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
 
-    navigate("/checkout", {
-      state: {
-        car,
-        totalPrice,
-        startDate,
-        endDate,
-        selectedOptions,
-        withDriver,
-      },
-    });
+    // check overlapping booking
+    try {
+      const res = await dispatch(
+        checkOverlapping({
+          bookingData: { car, startDate, endDate },
+          token,
+        }),
+      ).unwrap();
+
+      if (!res.success) {
+        setMessage(
+          `This car is already booked from ${new Date(res.bookedFrom).toLocaleDateString()} 
+     to ${new Date(res.bookedTo).toLocaleDateString()}`,
+        );
+        setTimeout(() => setMessage(""), 3000);
+        return;
+      }
+
+      navigate("/checkout", {
+        state: {
+          car,
+          totalPrice,
+          startDate,
+          endDate,
+          selectedOptions,
+          withDriver,
+        },
+      });
+    } catch (err) {
+      setMessage(err || "Unable to check booking availability");
+      setTimeout(() => setMessage(""), 3000);
+    }
   };
 
   const getTodayDate = () => new Date().toISOString().split("T")[0];
@@ -128,9 +153,6 @@ const CarDetails = () => {
                   <h3 className="fw-bold">
                     {car.make} {car.model} ({car.year})
                   </h3>
-                  <h4>
-                    <b>{car.vehicleId}</b>
-                  </h4>
                   <p>
                     <strong>Price/Day:</strong> ₹{car.pricePerDay}
                     <br />
@@ -206,7 +228,7 @@ const CarDetails = () => {
 
         {/* Booking Sidebar */}
         <div className="col-lg-4">
-          {/* ✅ Driver Availability box at top */}
+          {/* Driver Availability */}
           <div className="card mb-3 border-success">
             <div className="card-body">
               <h5 className="fw-bold">Driver Availability</h5>
@@ -273,7 +295,7 @@ const CarDetails = () => {
                       id={option.name}
                       onChange={() => handleOptionChange(option)}
                       checked={selectedOptions.some(
-                        (selected) => selected.name === option.name
+                        (selected) => selected.name === option.name,
                       )}
                     />
                     <label className="form-check-label" htmlFor={option.name}>

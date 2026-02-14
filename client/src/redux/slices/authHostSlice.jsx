@@ -4,7 +4,6 @@ import env from "dotenv";
 
 const API_BASE_URL = "https://carrentalapp-b023.onrender.com";
 
-
 // Signup for hosts
 export const signupHost = createAsyncThunk(
   "authHost/signup",

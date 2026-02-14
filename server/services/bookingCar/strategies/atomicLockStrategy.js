@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Booking = require('../../../models/Booking');
 const handleSingleBooking = require('../singleBookingHandler');
-const BookingStrategy = require('./bookingStrategy'); // Assuming this is the base class for booking
+const BookingStrategy = require('./bookingStrategy');
 
 class AtomicLockStrategy extends BookingStrategy {
   async book(data) {

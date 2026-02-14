@@ -1,8 +1,10 @@
 // server/controllers/bookingController.js
 const Booking = require("../models/Booking");
 const BookingManager = require("../services/bookingCar/bookingManager");
+const { overlappingBooking } = require("../utils/validateOverlappingBooking");
 
-// ✅ Get all bookings by user
+
+// Get all bookings by user
 exports.getBookings = async (req, res) => {
   try {
     const userId = req.query.userId || req.user._id; 
@@ -19,7 +21,7 @@ exports.getBookings = async (req, res) => {
   }
 };
 
-// ✅ Get booking by ID
+// Get booking by ID
 exports.getBookingById = async (req, res) => {
   try {
 
@@ -49,7 +51,7 @@ exports.getBookingById = async (req, res) => {
   }
 };
 
-// ✅ Get bookings by host ID 
+// Get bookings by host ID 
 exports.getBookingsByHostId = async (req, res) => {
   try {
     const hostId = req.query.hostId || req.user._id;
@@ -66,7 +68,7 @@ exports.getBookingsByHostId = async (req, res) => {
   }
 };
 
-// ✅ Create booking (single or bulk via strategy)
+// Create booking 
 exports.addBooking = async (req, res) => {
   try {
     
@@ -85,7 +87,7 @@ exports.addBooking = async (req, res) => {
   }
 };
 
-// ✅ Delete booking by ID
+// Delete Booking 
 exports.deleteBooking = async (req, res) => {
   try {
     const { id } = req.params;
@@ -99,3 +101,17 @@ exports.deleteBooking = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Check for overlapping bookings
+exports.checkBookingOverlap = async (req, res) => {
+  const { car, startDate, endDate } = req.body;
+
+  const result = await overlappingBooking(
+    car,
+    startDate,
+    endDate,
+  );
+
+  return res.status(200).json(result);
+};
+

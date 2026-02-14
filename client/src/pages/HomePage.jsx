@@ -1,18 +1,20 @@
-// src/pages/HomePage.jsx
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import SearchForm from '../components/SearchForm';
-import carImage from '/assets/main.png';
-import './HomePage.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SearchForm from "../components/SearchForm";
+import carImage from "/assets/main.png";
+import "./HomePage.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const HomePage = () => {
+
+   const {user,isAuthenticated} = useSelector((state) => state.authUser);
+
   const [filters, setFilters] = useState({
-    city: '',
-    category: '',
-    startDate: '',
-    endDate: '',
+    city: isAuthenticated ? user?.city || '' : '',
+    category: "",
+    startDate: "",
+    endDate: "",
   });
 
   const navigate = useNavigate();
@@ -22,10 +24,22 @@ const HomePage = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSearch = () => {
-    const { city, category, startDate, endDate } = filters;
-    navigate('/cars', { state: { city, category, pickUpDate: startDate, returnDate: endDate } });
-  };
+const handleSearch = () => {
+  if (!filters.city) {
+    alert("Please select city");
+    return; 
+  }
+
+  navigate("/cars", {
+    state: {
+      city: filters.city,
+      category: filters.category,
+      pickUpDate: filters.startDate,
+      returnDate: filters.endDate,
+    },
+  });
+};
+
 
   return (
     <div className="homepage-container">
@@ -36,6 +50,7 @@ const HomePage = () => {
       <div className="homepage-content d-flex flex-column flex-md-row align-items-center justify-content-between">
         <div className="homepage-form p-4">
           <h2 className="mb-4">Find & Book a Great Deal Today</h2>
+
           <SearchForm
             searchParams={{
               city: filters.city,

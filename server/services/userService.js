@@ -23,7 +23,7 @@ exports.registerUser = async ({ name, email, password, contactNumber, city, role
     return { user: newUser, token };
 };
 
-exports.loginUser = async ({ email, password }) => {
+exports.loginUser = async ({ email, password }) => {    
     const user = await User.findOne({ email });
     if (!user) throw new Error('User not found');
 

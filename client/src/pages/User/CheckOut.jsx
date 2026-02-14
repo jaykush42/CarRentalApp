@@ -59,6 +59,7 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     if (!validateForm()) return;
 
+    console.log(car.hostId || car.host._id);
     const bookingData = {
       car:
         {
@@ -66,7 +67,7 @@ const Checkout = () => {
           title: `${car.make} ${car.model} (${car.year}) (${car.vehicleId})`,
           image: car.image
         },
-      hostId: car.host._id || car.hostId,
+      hostId: car.hostId || car.host._id,
       userId: user._id,
       totalPrice: totalPrice - discount + driverCharge,
       withDriver,
