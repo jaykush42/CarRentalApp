@@ -1,6 +1,6 @@
-import Booking from "../models/Booking.js";
+const Booking = require("../models/Booking");
 
-export const overlappingBooking = async (car, startDate, endDate) => {
+const overlappingBooking = async (car, startDate, endDate) => {
   try {
     const carId =
       car?.carId?._id || car?.carId || car?._id;
@@ -32,3 +32,5 @@ export const overlappingBooking = async (car, startDate, endDate) => {
     };
   }
 };
+
+module.exports = overlappingBooking
