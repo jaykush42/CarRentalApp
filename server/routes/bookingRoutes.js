@@ -17,6 +17,6 @@ router.get('/:id', protect, getBookingById);
 router.get('/host/:id', protect, getBookingsByHostId);
 router.post('/', protect, addBooking);
 router.delete('/:id', protect, deleteBooking);
-router.post('/check-overlap', protect, checkBookingOverlap);
+router.post('/checkOverlapping', protect, checkBookingOverlap);
 
 module.exports = router;

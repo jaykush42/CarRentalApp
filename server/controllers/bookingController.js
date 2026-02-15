@@ -1,7 +1,7 @@
 // server/controllers/bookingController.js
 const Booking = require("../models/Booking");
 const BookingManager = require("../services/bookingCar/bookingManager");
-const { overlappingBooking } = require("../utils/validateOverlappingBooking");
+const overlappingBooking = require("../utils/validateOverlappingBooking");
 
 
 // Get all bookings by user

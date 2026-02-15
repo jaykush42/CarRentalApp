@@ -59,7 +59,6 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     if (!validateForm()) return;
 
-    console.log(car.hostId || car.host._id);
     const bookingData = {
       car:
         {

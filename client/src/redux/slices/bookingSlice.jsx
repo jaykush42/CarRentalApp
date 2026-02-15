@@ -77,7 +77,7 @@ export const checkOverlapping = createAsyncThunk(
   async ({ bookingData, token }, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/api/bookings/check-overlap`,
+        `${API_BASE_URL}/api/bookings/checkOverlapping`,
         bookingData,
         { headers: { "x-auth-token": token } }
       );
