@@ -17,27 +17,7 @@ const { notFound, errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://carrentalapp-frontend.onrender.com'
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); 
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "x-auth-token"],
-    credentials: true
-  })
-);
+app.use(cors());
 
 app.use(cookieParser());
 app.use(bodyParser.json());
