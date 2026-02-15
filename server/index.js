@@ -17,17 +17,14 @@ const app = express();
 
 /* ================= Middleware ================= */
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  ...(process.env.CLIENT_URLS
-    ? process.env.CLIENT_URLS.split(",")
-    : [])
-];
+const allowedOrigins = process.env.CLIENT_URL
+  ? [process.env.CLIENT_URL.trim()]
+  : [];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
+      if (!origin) return callback(null, true); // allow Postman
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
@@ -40,6 +37,7 @@ app.use(
     allowedHeaders: ["Content-Type", "x-auth-token"],
   })
 );
+
 
 
 app.use(express.json()); // replaces bodyParser.json()
